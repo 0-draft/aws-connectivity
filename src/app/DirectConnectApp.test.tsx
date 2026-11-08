@@ -35,7 +35,7 @@ describe("Direct Connect deep dive", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Direct Connect を深掘り",
     );
-    expect(localStorage.getItem("on-ramp:lang")).toBe("ja");
+    expect(localStorage.getItem("aws-connectivity:lang")).toBe("ja");
   });
 
   it("the BGP lab reacts to a failed path", async () => {

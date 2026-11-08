@@ -87,7 +87,7 @@ jobs:
             REPO: ${{ github.repository }}
             PR: ${{ github.event.pull_request.number }}
 
-            This repository (0-draft/on-ramp): Every way from a corporate network into AWS, drawn as a road map: VPN, Direct Connect, SD-WAN, Transit Gateway, Cloud WAN, PrivateLink, hybrid DNS, user access. EN/JA.
+            This repository (0-draft/aws-connectivity): Every way from a corporate network into AWS, drawn as a road map: VPN, Direct Connect, SD-WAN, Transit Gateway, Cloud WAN, PrivateLink, hybrid DNS, user access. EN/JA.
 
             Before reviewing, read whatever this repository says about itself: CLAUDE.md,
             AGENTS.md, CONTRIBUTING.md, README.md (and README.ja.md if present), and the

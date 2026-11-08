@@ -46,8 +46,8 @@ export function Hero() {
               />
             </svg>
             <div className="min-w-0">
-              <h1 className="text-5xl leading-none font-black tracking-tight sm:text-6xl">
-                On-ramp
+              <h1 className="text-4xl leading-none font-black tracking-tight sm:text-6xl">
+                AWS Connectivity
               </h1>
               <p className="phrase mt-2 text-lg font-semibold [text-wrap:balance] sm:text-xl">
                 {t({

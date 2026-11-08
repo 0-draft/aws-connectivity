@@ -1,10 +1,12 @@
-# on-ramp
+# aws-connectivity
 
-[![ci](https://github.com/0-draft/on-ramp/actions/workflows/ci.yml/badge.svg)](https://github.com/0-draft/on-ramp/actions/workflows/ci.yml)
+[![ci](https://github.com/0-draft/aws-connectivity/actions/workflows/ci.yml/badge.svg)](https://github.com/0-draft/aws-connectivity/actions/workflows/ci.yml)
 
 社内ネットワークから AWS に入るすべての道を、道路地図として描いたインタラクティブ解説 (英語 / 日本語)。インターネット、Site-to-Site VPN、Direct Connect、SD-WAN、AWS 側のハブ (仮想プライベートゲートウェイ、Direct Connect ゲートウェイ、Transit Gateway、Cloud WAN)、PrivateLink、ハイブリッド DNS、人のアクセス、Outposts を 1 枚の地図に載せ、それぞれの道を「AWS がどう動くか予想 → 1 ステップずつ理由を確認」しながら走れます。
 
-**サイト:** <https://0-draft.github.io/on-ramp/?lang=ja>
+**サイト:** <https://0-draft.github.io/aws-connectivity/?lang=ja>
+
+旧名は `0-draft/on-ramp` です (2026-11-08 に改名。旧サイトの URL は表示されなくなりました)。
 
 [English README](README.md)
 
@@ -17,7 +19,7 @@
 | 2 | 交通ルール | CIDR スライダー、最長一致の案内標識、BGP、3 つのレイヤー、暗号化がどこに効くか |
 | 3 | インターネット | パブリックエンドポイントまでの道のり、S3 バケットポリシーのラボ (`aws:SourceIp` と `aws:SourceVpce`) |
 | 4 | VPN | トンネルのフェイルオーバー、VGW / Transit Gateway / Cloud WAN のスループットラボ (ECMP・大容量トンネル) |
-| 5 | Direct Connect | 区間ごとの持ち主、VIF の種類、閉域 ≠ 暗号化。詳細は [Direct Connect 深掘りページ](https://0-draft.github.io/on-ramp/direct-connect/?lang=ja) へ |
+| 5 | Direct Connect | 区間ごとの持ち主、VIF の種類、閉域 ≠ 暗号化。詳細は [Direct Connect 深掘りページ](https://0-draft.github.io/aws-connectivity/direct-connect/?lang=ja) へ |
 | 6 | ハブ | 規模ラボ (VPC × リージョン × 拠点を 4 つの設計で比較、クォータつき)、アプライアンスモード |
 | 7 | SD-WAN | カプセル化の断面図 (アタッチメントの中の GRE)、Connect の容量ラボ |
 | 8 | 経路選択 | 同じ経路でもハブが違えば答えが違う: VGW・Transit Gateway・Cloud WAN の判定はしご |
@@ -34,7 +36,7 @@
 
 ## Direct Connect 深掘り
 
-地図は「全部の道」、2 ページ目の **[Direct Connect を深掘り](https://0-draft.github.io/on-ramp/direct-connect/?lang=ja)** はそのうち 1 本を部品ごとにたどります。地図の Direct Connect の出口は要約して、そちらにリンクしています。2026-11-08 までは別サイト [0-draft/cross-connect](https://github.com/0-draft/cross-connect) でした。調査ノートは [`docs/direct-connect/`](docs/direct-connect/README.md) にあり、Direct Connect の料金表はサイト全体でここ 1 つだけです (`src/data/dxPricing.ts`、説明は [`docs/direct-connect/10-pricing.md`](docs/direct-connect/10-pricing.md))。
+地図は「全部の道」、2 ページ目の **[Direct Connect を深掘り](https://0-draft.github.io/aws-connectivity/direct-connect/?lang=ja)** はそのうち 1 本を部品ごとにたどります。地図の Direct Connect の出口は要約して、そちらにリンクしています。2026-11-08 までは別サイト [0-draft/cross-connect](https://github.com/0-draft/cross-connect) でした。調査ノートは [`docs/direct-connect/`](docs/direct-connect/README.md) にあり、Direct Connect の料金表はサイト全体でここ 1 つだけです (`src/data/dxPricing.ts`、説明は [`docs/direct-connect/10-pricing.md`](docs/direct-connect/10-pricing.md))。
 
 | セクション | インタラクティブ要素 |
 | --- | --- |
@@ -62,7 +64,7 @@ Node.js 24 が必要です。
 
 ```bash
 npm ci
-npm run dev        # http://localhost:5173/on-ramp/ (深掘り: /on-ramp/direct-connect/)
+npm run dev        # http://localhost:5173/aws-connectivity/ (深掘り: /aws-connectivity/direct-connect/)
 npm run check      # 型チェック・lint・整形・markdownlint・テスト・ビルド
 npm run test:e2e   # 実ブラウザでの確認 (要: npx playwright install chromium)
 ```

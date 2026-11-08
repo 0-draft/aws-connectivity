@@ -14,7 +14,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
-    baseURL: `http://localhost:${PORT}/on-ramp/`,
+    baseURL: `http://localhost:${PORT}/aws-connectivity/`,
     trace: "retain-on-failure",
   },
   projects: [
@@ -29,7 +29,7 @@ export default defineConfig({
   ],
   webServer: {
     command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
-    url: `http://localhost:${PORT}/on-ramp/`,
+    url: `http://localhost:${PORT}/aws-connectivity/`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

@@ -3,7 +3,7 @@ import { useLang } from "@/i18n/useLang";
 import { HOME, pageUrl } from "@/data/site";
 
 /** A link back into the road map that keeps the reader's language. */
-export function OnRampLink({
+export function HomeLink({
   section,
   children,
 }: {

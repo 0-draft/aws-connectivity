@@ -3,7 +3,7 @@ import type { L } from "@/i18n/lang";
 import { useLang } from "@/i18n/useLang";
 import { useNarrow } from "@/hooks/useNarrow";
 import { PlainWords } from "../components/Beacon";
-import { OnRampLink } from "../components/HomeLink";
+import { HomeLink } from "../components/HomeLink";
 import { Callout, Panel, Scroll, Section, Segmented, T, Tag } from "../components/ui";
 import { parseCidr } from "../lib/cidr";
 import { type Association, advertised } from "../lib/dxgw";
@@ -709,9 +709,9 @@ export function Gateway() {
       </Panel>
       <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--muted)]">
         <T c={C.hubs} />
-        <OnRampLink section="hubs">
+        <HomeLink section="hubs">
           <T c={C.hubsLink} />
-        </OnRampLink>
+        </HomeLink>
       </p>
 
       <h3 className="mt-14 mb-2 text-xl font-extrabold">{t(C.prefixLab)}</h3>

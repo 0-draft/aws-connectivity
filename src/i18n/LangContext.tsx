@@ -4,8 +4,8 @@ import { type Lang, readStoredLang, resolveInitialLang, storeLang } from "./lang
 import { LangContext, type LangValue } from "./context";
 
 const TITLE: Record<Lang, string> = {
-  en: "On-ramp — every way from your network into AWS",
-  ja: "On-ramp — 社内ネットワークから AWS への全経路",
+  en: "AWS Connectivity — every way from your network into AWS",
+  ja: "AWS Connectivity — 社内ネットワークから AWS への全経路",
 };
 
 export function LangProvider({

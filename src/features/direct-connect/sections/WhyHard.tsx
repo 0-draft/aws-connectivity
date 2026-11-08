@@ -6,7 +6,7 @@ import { PlainWords } from "../components/Beacon";
 import { Term } from "../components/Term";
 import { CAUSE, TRAPS, type Trap } from "../content/traps";
 import { NAV } from "../content/nav";
-import { OnRampLink } from "../components/HomeLink";
+import { HomeLink } from "../components/HomeLink";
 
 const C = {
   kicker: { en: "Start here", ja: "まずはここから" },
@@ -310,9 +310,9 @@ export function WhyHard() {
       </div>
       <p className="mb-8 max-w-3xl text-sm leading-relaxed text-[var(--muted)]">
         <T c={C.roads} />
-        <OnRampLink>
+        <HomeLink>
           <T c={{ en: "the road map", ja: "道路地図" }} />
-        </OnRampLink>
+        </HomeLink>
         <T c={C.roadsEnd} />
       </p>
       <Causes onPick={pick} />

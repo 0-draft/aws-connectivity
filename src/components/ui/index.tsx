@@ -253,7 +253,7 @@ export function Sources({
         <li>
           <a
             className="underline"
-            href={`https://github.com/0-draft/on-ramp/blob/main/docs/${doc}`}
+            href={`https://github.com/0-draft/aws-connectivity/blob/main/docs/${doc}`}
           >
             docs/{doc}
           </a>
