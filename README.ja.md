@@ -17,7 +17,7 @@
 | 2 | 交通ルール | CIDR スライダー、最長一致の案内標識、BGP、3 つのレイヤー、暗号化がどこに効くか |
 | 3 | インターネット | パブリックエンドポイントまでの道のり、S3 バケットポリシーのラボ (`aws:SourceIp` と `aws:SourceVpce`) |
 | 4 | VPN | トンネルのフェイルオーバー、VGW / Transit Gateway / Cloud WAN のスループットラボ (ECMP・大容量トンネル) |
-| 5 | Direct Connect | 区間ごとの持ち主、VIF の種類、閉域 ≠ 暗号化。詳細は [Cross Connect](https://0-draft.github.io/cross-connect/?lang=ja) へ |
+| 5 | Direct Connect | 区間ごとの持ち主、VIF の種類、閉域 ≠ 暗号化。詳細は [Direct Connect 深掘りページ](https://0-draft.github.io/on-ramp/direct-connect/?lang=ja) へ |
 | 6 | ハブ | 規模ラボ (VPC × リージョン × 拠点を 4 つの設計で比較、クォータつき)、アプライアンスモード |
 | 7 | SD-WAN | カプセル化の断面図 (アタッチメントの中の GRE)、Connect の容量ラボ |
 | 8 | 経路選択 | 同じ経路でもハブが違えば答えが違う: VGW・Transit Gateway・Cloud WAN の判定はしご |
@@ -32,7 +32,29 @@
 
 すべての数字の根拠は [`docs/`](docs/README.md) (出典つき、英語) にあります。2026-10-10 時点の AWS 公式ドキュメント・What's New・Price List API で確認済み。
 
-On-ramp は「全部の道の地図」、[Cross Connect](https://github.com/0-draft/cross-connect) はそのうち 1 本 (Direct Connect) を掘り下げたものです。ここの Direct Connect の出口は要約して Cross Connect にリンクしています。
+## Direct Connect 深掘り
+
+地図は「全部の道」、2 ページ目の **[Direct Connect を深掘り](https://0-draft.github.io/on-ramp/direct-connect/?lang=ja)** はそのうち 1 本を部品ごとにたどります。地図の Direct Connect の出口は要約して、そちらにリンクしています。2026-11-08 までは別サイト [0-draft/cross-connect](https://github.com/0-draft/cross-connect) でした。調査ノートは [`docs/direct-connect/`](docs/direct-connect/README.md) にあり、Direct Connect の料金表はサイト全体でここ 1 つだけです (`src/data/dxPricing.ts`、説明は [`docs/direct-connect/10-pricing.md`](docs/direct-connect/10-pricing.md))。
+
+| セクション | インタラクティブ要素 |
+| --- | --- |
+| なぜ難しい? | 4 つの根本原因、用語をタップで解説できるレイヤー図、だれが何を持っているか、つまずきポイントと解説先へのリンク |
+| 概要 | ルーター、キャリア回線、ケージ、クロスコネクト、DX ルーター、VIF、ゲートウェイをクリックで解説 |
+| 接続 | 帯域ラダー、専用 vs ホスト型、LOA-CFA 発注フローのステップ表示 |
+| LAG・MACsec | LAG メンバーを切断して最小リンク数の挙動を確認、`should_encrypt` と `must_encrypt` の違い |
+| VIF | プライベート / パブリック / トランジットを切り替えて到達先を表示 |
+| DX ゲートウェイ | VGW / TGW / Cloud WAN モード、許可プレフィックスラボ、SiteLink の切り替え |
+| BGP | 経路選択ラボ: プレフィックス長、`7224:7x00` コミュニティ、AS_PATH プリペンド、ホームリージョン、VPN バックアップ、行きと帰りが食い違うときの非対称ルーティング警告 |
+| 冗長性 | Maximum / High / Dev-Test / Classic モデルの障害シミュレーター |
+| セキュリティ | MACsec・IPsec・TLS がそれぞれ守る区間 |
+| 運用 | はい / いいえで進むトラブルシューティング、アラームを設定すべきメトリクス |
+| 料金 | 定価ベースの月額シミュレーター、定額料金の損益分岐 |
+| 設計 | 7 つの質問でトポロジーを提案、アンチパターン |
+| クイズ | よくある思い込み 10 問の「ほんと? うそ?」 |
+| 年表 | 2011〜2026 年のリリース |
+| 用語集 | 各用語の英語・日本語の正式名と、混同しやすい用語 |
+
+深掘りページの内容は 2026-10-12 時点の AWS 公式ドキュメントで確認済み。
 
 ## 開発
 
@@ -40,12 +62,12 @@ Node.js 24 が必要です。
 
 ```bash
 npm ci
-npm run dev        # http://localhost:5173/on-ramp/
+npm run dev        # http://localhost:5173/on-ramp/ (深掘り: /on-ramp/direct-connect/)
 npm run check      # 型チェック・lint・整形・markdownlint・テスト・ビルド
 npm run test:e2e   # 実ブラウザでの確認 (要: npx playwright install chromium)
 ```
 
-ソースは機能単位です。`src/features/<セクション>/` にセクション本体・ラボ・その裏の純粋関数 (隣に Vitest のテスト) があり、共通 UI は `src/components/`、経路データとナビは `src/data/`、言語切り替えは `src/i18n/` にあります。
+ソースは機能単位です。`src/features/<セクション>/` にセクション本体・ラボ・その裏の純粋関数 (隣に Vitest のテスト) があり、共通 UI は `src/components/`、経路データとナビは `src/data/`、言語切り替えは `src/i18n/` にあります。深掘りページは 2 つ目の Vite エントリ (`direct-connect/index.html` → `src/direct-connect.tsx` → `src/app/DirectConnectApp.tsx`) で、セクションは `src/features/direct-connect/` にあります。
 
 ## CI
 

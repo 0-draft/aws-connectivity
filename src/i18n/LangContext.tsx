@@ -11,9 +11,12 @@ const TITLE: Record<Lang, string> = {
 export function LangProvider({
   children,
   initial,
+  title = TITLE,
 }: {
   children: ReactNode;
   initial?: Lang;
+  /** Document title per language; each page of the site has its own. */
+  title?: Record<Lang, string>;
 }) {
   const [lang, setLangState] = useState<Lang>(
     () => initial ?? resolveInitialLang(window.location.search, readStoredLang()),
@@ -21,8 +24,8 @@ export function LangProvider({
 
   useEffect(() => {
     document.documentElement.lang = lang;
-    document.title = TITLE[lang];
-  }, [lang]);
+    document.title = title[lang];
+  }, [lang, title]);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);

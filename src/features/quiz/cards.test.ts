@@ -1,5 +1,6 @@
 import { NAV } from "@/data/nav";
 import { CARDS } from "./cards";
+import { DX_DEEP } from "@/data/site";
 
 describe("quiz cards", () => {
   it("every card points at a real exit", () => {
@@ -10,9 +11,8 @@ describe("quiz cards", () => {
     expect(CARDS.some((c) => c.fact)).toBe(true);
     expect(CARDS.some((c) => !c.fact)).toBe(true);
   });
-  it("deeper links point at the Cross Connect site", () => {
+  it("deeper links point at the DX deep dive page", () => {
     for (const c of CARDS)
-      if (c.deeper)
-        expect(c.deeper).toMatch(/^https:\/\/0-draft\.github\.io\/cross-connect\/#/);
+      if (c.deeper) expect(c.deeper.startsWith(`${DX_DEEP}#`)).toBe(true);
   });
 });

@@ -3,6 +3,7 @@ import { Callout, MetaphorLimit, Section, Sources } from "@/components/ui";
 import { Predict } from "@/components/ui/Predict";
 import { CostLab } from "./CostLab";
 import { HOURS, P, PRICES_AS_OF, dxBreakEvenGb, flatBreakEvenGb } from "./cost";
+import { DX_DEEP } from "@/data/site";
 
 const tb = (gb: number, digits = 0) =>
   (gb / 1024).toLocaleString("en-US", { maximumFractionDigits: digits });
@@ -49,13 +50,10 @@ export function CostSection() {
                 en: `Turn on the Transit Gateway: two attachments and $${P.tgwPerGb} per GB add about $${TGW_ON_10TB} to a 10 TB month. One flat-rate 10G port only beats one pay-as-you-go 10G port past about ${tb(flatBreakEvenGb())} TB a month; a redundant port-pair compares differently.`,
                 ja: `Transit Gateway をオンにすると、アタッチメント 2 つと 1 GB あたり $${P.tgwPerGb} で、月 10 TB なら約 $${TGW_ON_10TB} 増えます。10G 定額ポート 1 本が従量課金の 10G ポート 1 本より安くなるのは月約 ${tb(flatBreakEvenGb())} TB から。冗長化したポートペアでは比較が変わります。`,
               })}{" "}
-              <a
-                className="font-semibold underline"
-                href="https://0-draft.github.io/cross-connect/#pricing"
-              >
+              <a className="font-semibold underline" href={`${DX_DEEP}#pricing`}>
                 {t({
-                  en: "Direct Connect pricing in depth (Cross Connect)",
-                  ja: "Direct Connect の料金を詳しく (Cross Connect)",
+                  en: "Direct Connect pricing in depth (DX deep dive)",
+                  ja: "Direct Connect の料金を詳しく (DX 深掘り)",
                 })}
               </a>
             </p>

@@ -10,6 +10,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rolldownOptions: {
+      // Two pages: the road map, and the Direct Connect deep dive.
+      input: {
+        main: fileURLToPath(new URL("./index.html", import.meta.url)),
+        "direct-connect": fileURLToPath(
+          new URL("./direct-connect/index.html", import.meta.url),
+        ),
+      },
       output: {
         // React changes far less often than the copy; give it its own
         // long-cached chunk.

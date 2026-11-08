@@ -169,7 +169,7 @@ function Card({
               </a>
               {card.deeper && (
                 <a href={card.deeper} className="font-semibold underline">
-                  {t({ en: "Cross Connect: myths", ja: "Cross Connect: よくある誤解" })}
+                  {t({ en: "DX deep dive: myths", ja: "DX 深掘り: よくある誤解" })}
                 </a>
               )}
               <button type="button" onClick={onReset} className="font-semibold underline">

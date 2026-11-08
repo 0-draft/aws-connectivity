@@ -1,5 +1,6 @@
 import { Callout, Section, Sources, T } from "@/components/ui";
 import { RoutingLab } from "./RoutingLab";
+import { DX_DEEP } from "@/data/site";
 
 export function RoutingSection() {
   return (
@@ -24,15 +25,12 @@ export function RoutingSection() {
         >
           <T
             c={{
-              en: "This lab is about how each hub picks between different kinds of road. When the choice is between two Direct Connect links, AWS also reads your BGP communities (7224:7100/7200/7300), AS_PATH and the location's home Region. That lab lives in Cross Connect.",
-              ja: "このラボは、ハブが「種類の違う道」からどう選ぶかを扱います。Direct Connect 回線どうしの選択では、さらに BGP コミュニティ (7224:7100/7200/7300)、AS_PATH、ロケーションのホームリージョンも効きます。そちらのラボは Cross Connect にあります。",
+              en: "This lab is about how each hub picks between different kinds of road. When the choice is between two Direct Connect links, AWS also reads your BGP communities (7224:7100/7200/7300), AS_PATH and the location's home Region. That lab is on the DX deep dive page.",
+              ja: "このラボは、ハブが「種類の違う道」からどう選ぶかを扱います。Direct Connect 回線どうしの選択では、さらに BGP コミュニティ (7224:7100/7200/7300)、AS_PATH、ロケーションのホームリージョンも効きます。そちらのラボは DX 深掘りのページにあります。",
             }}
           />{" "}
-          <a
-            className="font-bold underline"
-            href="https://0-draft.github.io/cross-connect/#routing"
-          >
-            Cross Connect: BGP
+          <a className="font-bold underline" href={`${DX_DEEP}#routing`}>
+            <T c={{ en: "DX deep dive: BGP", ja: "DX 深掘り: BGP" }} />
           </a>{" "}
           <T
             c={{
@@ -40,12 +38,8 @@ export function RoutingSection() {
               ja: "DX の切り替わりの速さ (BFD・ホールドタイマー・フェイルオーバーテスト):",
             }}
           />{" "}
-          <a
-            className="font-bold underline"
-            href="https://0-draft.github.io/cross-connect/#resiliency"
-          >
-            Cross Connect: {""}
-            <T c={{ en: "Resiliency", ja: "冗長性" }} />
+          <a className="font-bold underline" href={`${DX_DEEP}#resiliency`}>
+            <T c={{ en: "DX deep dive: Resiliency", ja: "DX 深掘り: 冗長性" }} />
           </a>
         </Callout>
       </div>
