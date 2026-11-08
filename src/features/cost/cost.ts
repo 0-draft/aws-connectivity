@@ -1,11 +1,14 @@
 import type { L } from "@/i18n/lang";
 import { AS_OF } from "@/data/asOf";
+import { DTO_PER_GB, FLAT_RATE_HOURLY, portHourly } from "@/data/dxPricing";
 
 /**
  * Monthly AWS charges for sending data from ap-northeast-1 (Tokyo) to your
  * data center, per path. List on-demand USD from the AWS Price List API as
  * recorded in docs/12-security-and-operations.md ("Unit prices for a
- * calculator"). Excludes tax, carrier circuits, colocation and partner fees.
+ * calculator"); every Direct Connect price comes from the shared DX price
+ * list in @/data/dxPricing (Japan locations). Excludes tax, carrier
+ * circuits, colocation and partner fees.
  */
 
 /** Prices were read on the site-wide verification date. */
@@ -20,13 +23,13 @@ export const P = {
     { upTo: Infinity, perGb: 0.084 },
   ],
   freeTierGb: 100,
-  dxDtoJapan: 0.041,
-  dxDedicated1g: 0.285,
-  dxDedicated10g: 2.142,
-  dxHosted50m: 0.029,
-  dxHosted500m: 0.19,
-  dxHosted1g: 0.314,
-  dxFlat10gTier1: 10.96,
+  dxDtoJapan: DTO_PER_GB["tokyo-osaka"].japan,
+  dxDedicated1g: portHourly("dedicated", 1000, "japan"),
+  dxDedicated10g: portHourly("dedicated", 10000, "japan"),
+  dxHosted50m: portHourly("hosted", 50, "japan"),
+  dxHosted500m: portHourly("hosted", 500, "japan"),
+  dxHosted1g: portHourly("hosted", 1000, "japan"),
+  dxFlat10gTier1: FLAT_RATE_HOURLY[10000][0],
   vpnConnection: 0.048,
   tgwAttachment: 0.07,
   tgwPerGb: 0.02,
@@ -241,7 +244,7 @@ export function dxBreakEvenGb(hourly: number): number {
 /**
  * Monthly GB at which one 10G flat-rate port (Tier 1) beats one 10G
  * pay-as-you-go port plus $0.041/GB. A redundant port-pair compares
- * differently; Cross Connect's pricing section covers pairs.
+ * differently; the Direct Connect deep dive's pricing section covers pairs.
  */
 export function flatBreakEvenGb(): number {
   return ((P.dxFlat10gTier1 - P.dxDedicated10g) * HOURS) / P.dxDtoJapan;
