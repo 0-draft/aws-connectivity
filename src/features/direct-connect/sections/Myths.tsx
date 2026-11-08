@@ -8,8 +8,8 @@ const C = {
   kicker: { en: "Quick check", ja: "腕だめし" },
   title: { en: "Myth or fact?", ja: "ほんと? うそ?" },
   lead: {
-    en: "Ten things people commonly believe about Direct Connect. Pick an answer on each card to see whether you were right.",
-    ja: "Direct Connect についてよくある思い込みを 10 個。カードごとに答えを選ぶと、正解と理由が出ます。",
+    en: `${MYTHS.length} things people commonly believe about Direct Connect. Pick an answer on each card to see whether you were right.`,
+    ja: `Direct Connect についてよくある思い込みを ${MYTHS.length} 個。カードごとに答えを選ぶと、正解と理由が出ます。`,
   },
   fact: { en: "Fact", ja: "ほんと" },
   myth: { en: "Myth", ja: "うそ" },

@@ -27,8 +27,8 @@ const C = {
   params: { en: "Parameters you choose", ja: "作成時に決めるパラメータ" },
   limitsTitle: { en: "Per-connection limits", ja: "接続あたりの上限" },
   limits: {
-    en: "A dedicated connection or LAG takes up to 51 VIFs: 50 private/public plus up to 4 transit. A hosted connection takes exactly one. Routes you advertise on a private or transit VIF are capped at 100 per address family by default (up to 1,000 with inbound prefix controls since 2026-08); above the limit the BGP session goes Idle. Public VIFs accept 1,000.",
-    ja: "VIF は専用接続 / LAG あたり最大 51 本 (プライベート / パブリック 50 本 + トランジット最大 4 本)、ホスト接続では 1 本だけです。プライベート / トランジット VIF で自社が広告できる経路は、アドレスファミリーごとにデフォルト 100 本です (2026-08 以降は inbound prefix controls で最大 1,000 本)。上限を超えると BGP は Idle になります。パブリック VIF の上限は 1,000 本です。",
+    en: "A dedicated connection or LAG takes up to 51 VIFs in total: at most 50 private or public and at most 4 transit, all counted against the 51. A hosted connection takes exactly one. Routes you advertise on a private or transit VIF are capped at 100 per address family by default (up to 1,000 with inbound prefix controls since 2026-08); above the limit the BGP session goes Idle. Public VIFs accept 1,000.",
+    ja: "VIF は専用接続 / LAG あたり合計最大 51 本 (うちプライベート / パブリックは最大 50 本、トランジットは最大 4 本で、どちらも 51 本の枠に含まれる)、ホスト接続では 1 本だけです。プライベート / トランジット VIF で自社が広告できる経路は、アドレスファミリーごとにデフォルト 100 本です (2026-08 以降は inbound prefix controls で最大 1,000 本)。上限を超えると BGP は Idle になります。パブリック VIF の上限は 1,000 本です。",
   },
 };
 

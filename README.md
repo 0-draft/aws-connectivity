@@ -50,7 +50,7 @@ The map is every road; the second page, **[Direct Connect, up close](https://0-d
 | Operations | Yes/no troubleshooting tree, metrics worth an alarm |
 | Pricing | Monthly estimate from list prices, flat-rate break-even |
 | Patterns | Seven questions to a topology, anti-patterns |
-| Quiz | Ten myth-or-fact cards on the most common misconceptions |
+| Quiz | Eleven myth-or-fact cards on the most common misconceptions |
 | Timeline | 2011–2026 launches |
 | Glossary | Every term with its official English and Japanese console name and what it is often confused with |
 

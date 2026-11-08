@@ -147,7 +147,7 @@ flowchart TD
 | Factor | Dedicated | Hosted |
 | --- | --- | --- |
 | Speeds | 1, 10, 100, 400 Gbps | 50 Mbps to 25 Gbps |
-| VIFs | Up to 51 (50 public/private plus up to 4 transit, 51 total) | 1 |
+| VIFs | Up to 51 in total (at most 50 public/private and at most 4 transit, all within the 51) | 1 |
 | LAG | Yes (4 × <100G or 2 × 100/400G) | No |
 | MACsec | 10/100/400G at select locations | No |
 | SLA | Yes, if you meet the deployment requirements | Not covered by the DX SLA |

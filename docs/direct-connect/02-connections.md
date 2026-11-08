@@ -6,7 +6,7 @@ This page covers the physical and connection layer of AWS Direct Connect: dedica
 
 | Type | Speeds | Who orders it | Physical port | VIFs per connection |
 | --- | --- | --- | --- | --- |
-| Dedicated connection | 1, 10, 100, 400 Gbps | You, via console, CLI, API (or a partner on your behalf) | Single customer's physical Ethernet port on an AWS DX router | Up to 50 private/public + up to 4 transit, 51 total |
+| Dedicated connection | 1, 10, 100, 400 Gbps | You, via console, CLI, API (or a partner on your behalf) | Single customer's physical Ethernet port on an AWS DX router | 51 total, of which up to 50 private/public and up to 4 transit (transit VIFs count against the 51) |
 | Hosted connection | 50, 100, 200, 300, 400, 500 Mbps; 1, 2, 5, 10, 25 Gbps | An AWS Direct Connect Delivery Partner provisions it; you accept it | Capacity carved out of the partner's interconnect | 1 (private, public, or transit) |
 
 ### Dedicated connections
