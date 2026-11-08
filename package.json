@@ -51,5 +51,10 @@
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.5",
     "vitest": "^5.0.2"
+  },
+  "overrides": {
+    "katex": "0.18.10",
+    "minimatch": "11.0.5",
+    "re2js": "2.9.1"
   }
 }
