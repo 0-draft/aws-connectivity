@@ -27,12 +27,20 @@ jobs:
             exit 0
           fi
           gh issue create --repo "$REPO" --title "$title" --body-file - <<'BODY'
-          Re-verify the facts the site pins to a date, then update `src/data/asOf.ts` and the docs.
+          Re-verify the facts the site pins to a date, then update `src/data/asOf.ts` (`AS_OF` for the road map, `DX_AS_OF` for the Direct Connect deep dive and the DX price list) and the docs.
 
+          Road map
           - [ ] Site-to-Site VPN quotas and pricing — https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-limits.html
-          - [ ] Direct Connect pricing and quotas — https://aws.amazon.com/directconnect/pricing/
           - [ ] Transit Gateway and Cloud WAN pricing — https://aws.amazon.com/transit-gateway/pricing/
           - [ ] PrivateLink, Route 53 Resolver, Client VPN, Verified Access pricing
           - [ ] New launches since the last check — https://aws.amazon.com/about-aws/whats-new/networking_and_content_delivery/
           - [ ] Timeline (`src/features/timeline/data.ts`, `docs/15-timeline.md`)
+
+          Direct Connect (one price list for both pages: `src/data/dxPricing.ts` and `docs/direct-connect/10-pricing.md`)
+          - [ ] Pricing: port-hours, DTO matrix, flat-rate tiers, SiteLink — https://aws.amazon.com/directconnect/pricing/ and https://aws.amazon.com/directconnect/pricing/flat-rate/
+          - [ ] Quotas — https://docs.aws.amazon.com/directconnect/latest/UserGuide/limits.html
+          - [ ] New DX launches — the DX User Guide document history
+          - [ ] Locations and speeds (400G, MACsec) — https://aws.amazon.com/directconnect/locations/
+          - [ ] SLA — https://aws.amazon.com/directconnect/sla/
+          - [ ] DX timeline (`src/features/direct-connect/content/timeline.ts`, `docs/direct-connect/12-timeline.md`)
           BODY

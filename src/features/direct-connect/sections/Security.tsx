@@ -1,0 +1,536 @@
+import { useState } from "react";
+import type { L } from "@/i18n/lang";
+import { useLang } from "@/i18n/useLang";
+import { useNarrow } from "@/hooks/useNarrow";
+import { PlainWords } from "../components/Beacon";
+import { Callout, Panel, Scroll, Section, Segmented, T } from "../components/ui";
+
+const C = {
+  kicker: { en: "Security", ja: "セキュリティ" },
+  title: {
+    en: "Private is not the same as encrypted",
+    ja: "「閉域」は「暗号化」ではない",
+  },
+  lead: {
+    en: "AWS states plainly that Direct Connect does not encrypt your traffic in transit by default. The cross connect, a partner's network and the DX device all carry your frames in clear text until you add a layer that encrypts.",
+    ja: "AWS は「Direct Connect はデフォルトでは転送中のトラフィックを暗号化しない」と明言しています。クロスコネクトも、パートナー網も、DX 機器も、暗号化レイヤーを足さない限りフレームを平文のまま運びます。",
+  },
+  layers: { en: "Which segment each layer protects", ja: "各レイヤーが守る区間" },
+  pickTitle: { en: "MACsec or IPsec?", ja: "MACsec か IPsec か" },
+  publicTitle: {
+    en: "A public VIF widens your exposure",
+    ja: "パブリック VIF は露出面を広げる",
+  },
+  public: {
+    en: "You receive every AWS public prefix in every public Region — including addresses used by other AWS customers — and the prefixes you advertise are reachable from any AWS public IP. Put a firewall on it, filter with 7224:8100/8200 and scope your own prefixes with 7224:9100/9200. If you only need a few services, a private VIF plus PrivateLink endpoints is a smaller surface. (S3/DynamoDB gateway endpoints do not accept traffic arriving over DX.)",
+    ja: "全パブリックリージョンの AWS パブリックプレフィックスを受け取ります (他の AWS 顧客が使うアドレスも含む)。そして自社が広告したプレフィックスには、任意の AWS パブリック IP から到達できます。ファイアウォールを置き、7224:8100/8200 でフィルタし、自プレフィックスは 7224:9100/9200 でスコープを絞りましょう。使うサービスが少ないなら、プライベート VIF + PrivateLink エンドポイントの方が攻撃面は小さくなります (S3 / DynamoDB のゲートウェイエンドポイントは DX 経由の通信を受け付けません)。",
+  },
+  checklist: { en: "Checklist", ja: "チェックリスト" },
+};
+
+type Layer = "macsec" | "ipsec" | "tls";
+
+// Path positions on the wide diagram: app, your router, the colo's meet-me room
+// (where the carrier hands off to the cross connect), the AWS DX device, the
+// TGW/VGW and the workload.
+const X = { app: 60, router: 150, mmr: 330, dx: 450, gw: 790, workload: 890 };
+
+const LAYERS: Record<
+  Layer,
+  {
+    label: string;
+    color: string;
+    from: number;
+    to: number;
+    /** Reach that holds only under a condition (drawn dashed), from here to `from`. */
+    maybeFrom?: number;
+    body: L;
+  }
+> = {
+  macsec: {
+    label: "MACsec · L2",
+    color: "var(--ok)",
+    from: X.mmr,
+    to: X.dx,
+    maybeFrom: X.router,
+    body: {
+      en: "One hop: your MACsec device ↔ AWS DX device, which must be Layer 2 adjacent. It always covers the cross connect. The carrier circuit is covered only when your MACsec device sits at your site and the carrier passes Ethernet frames through transparently; with your router in the colo, the carrier stretch behind it is not covered. Near line rate, no extra charge. Dedicated 10/100/400G at (M) locations, LAGs and partner interconnects. Protects everything on the link, including ARP and BGP.",
+      ja: "1 区間のみ: 自社の MACsec 機器 ↔ AWS DX 機器。両者はレイヤー 2 で直結している必要があります。クロスコネクトは必ず対象です。キャリア回線まで守れるのは、MACsec 機器を自社拠点側に置き、キャリアがイーサネットフレームを透過的に運ぶ場合だけ。ルーターをコロケーションに置くなら、その手前のキャリア区間は対象外です。ほぼラインレート、追加料金なし。(M) 表記拠点の専用 10/100/400G、LAG、パートナー相互接続で利用可。ARP や BGP を含むリンク上のすべてを保護。",
+    },
+  },
+  ipsec: {
+    label: "IPsec · L3",
+    color: "var(--violet)",
+    from: X.router,
+    to: X.gw,
+    body: {
+      en: "Your router ↔ Transit Gateway (Private IP VPN over a transit VIF, since 2022-06, no public IPs) or ↔ VGW/TGW public endpoints over a public VIF. Works on any connection, including 1G and hosted. Per-tunnel throughput limits apply.",
+      ja: "自社ルーター ↔ Transit Gateway (トランジット VIF 上の Private IP VPN、2022-06〜、パブリック IP 不要)、またはパブリック VIF 経由で VGW / TGW のパブリックエンドポイント。1G やホスト接続を含むあらゆる接続で使えるが、トンネルあたりのスループット上限あり。",
+    },
+  },
+  tls: {
+    label: "TLS · L7",
+    color: "var(--aws)",
+    from: X.app,
+    to: X.workload,
+    body: {
+      en: "Application ↔ application. Always recommended for sensitive data, whatever the network does underneath.",
+      ja: "アプリケーション ↔ アプリケーション。下のネットワークが何であれ、機密データには常に推奨。",
+    },
+  },
+};
+
+function LayerDiagram() {
+  const { t } = useLang();
+  const narrow = useNarrow();
+  const [focus, setFocus] = useState<Layer>("macsec");
+  const nodes: [number, string][] = [
+    [X.app, t({ en: "app", ja: "アプリ" })],
+    [X.router, t({ en: "router", ja: "ルーター" })],
+    [X.mmr, t({ en: "colo MMR", ja: "構内 MMR" })],
+    [X.dx, t({ en: "DX device", ja: "DX 機器" })],
+    [X.gw, "TGW / VGW"],
+    [X.workload, t({ en: "workload", ja: "ワークロード" })],
+  ];
+  const carrier = t({ en: "carrier", ja: "キャリア" });
+  const xc = t({ en: "cross connect", ja: "クロスコネクト" });
+  const maybe = t({ en: "if L2-transparent", ja: "L2 透過なら" });
+  return (
+    <Panel>
+      {narrow ? (
+        <div>
+          <Segmented
+            label={t(C.layers)}
+            value={focus}
+            options={(Object.keys(LAYERS) as Layer[]).map((k) => ({
+              value: k,
+              label: LAYERS[k].label,
+            }))}
+            onChange={setFocus}
+          />
+          <svg
+            viewBox="0 0 340 360"
+            className="diagram mx-auto mt-3 w-full max-w-[420px]"
+            role="img"
+            aria-label={t(C.layers)}
+          >
+            {(() => {
+              // Map the horizontal path positions (60..890) onto a vertical axis,
+              // then draw every layer as its own vertical pill so their reach
+              // can be compared, as on the wide layout.
+              const y = (x: number) => 20 + ((x - 60) / 830) * 320;
+              const order: Layer[] = ["macsec", "ipsec", "tls"];
+              return (
+                <g>
+                  <line
+                    x1="30"
+                    x2="30"
+                    y1={y(60)}
+                    y2={y(890)}
+                    stroke="var(--line)"
+                    strokeWidth="3"
+                  />
+                  <line
+                    x1="30"
+                    x2="30"
+                    y1={y(X.router)}
+                    y2={y(X.mmr)}
+                    stroke="var(--fiber)"
+                    strokeWidth="4"
+                    strokeDasharray="6 4"
+                  />
+                  <line
+                    x1="30"
+                    x2="30"
+                    y1={y(X.mmr)}
+                    y2={y(X.dx)}
+                    stroke="var(--fiber)"
+                    strokeWidth="4"
+                  />
+                  <line
+                    x1="30"
+                    x2="30"
+                    y1={y(X.dx)}
+                    y2={y(X.gw)}
+                    stroke="var(--aws)"
+                    strokeWidth="4"
+                  />
+                  {order.map((k, i) => {
+                    const l = LAYERS[k];
+                    const on = k === focus;
+                    return (
+                      <g key={k}>
+                        {l.maybeFrom !== undefined && (
+                          <rect
+                            x={56 + i * 26}
+                            y={y(l.maybeFrom) - 8}
+                            width="18"
+                            height={y(l.to) - y(l.maybeFrom) + 16}
+                            rx="9"
+                            fill={l.color}
+                            opacity={on ? 0.35 : 0.12}
+                            stroke={l.color}
+                            strokeWidth="1.5"
+                            strokeDasharray="4 3"
+                          />
+                        )}
+                        <rect
+                          x={56 + i * 26}
+                          y={y(l.from) - 8}
+                          width="18"
+                          height={y(l.to) - y(l.from) + 16}
+                          rx="9"
+                          fill={l.color}
+                          opacity={on ? 0.9 : 0.25}
+                          stroke={l.color}
+                          strokeWidth={on ? 0 : 1.5}
+                        />
+                      </g>
+                    );
+                  })}
+                  {nodes.map(([x, label]) => (
+                    <g key={label}>
+                      <circle
+                        cx="30"
+                        cy={y(x)}
+                        r="8"
+                        fill="var(--panel)"
+                        stroke="var(--ink)"
+                        strokeWidth="2"
+                      />
+                      <text x="146" y={y(x) + 5} fontSize="15" fill="var(--ink)">
+                        {label}
+                      </text>
+                    </g>
+                  ))}
+                  <text
+                    x="146"
+                    y={(y(X.router) + y(X.mmr)) / 2 - 4}
+                    fontSize="15"
+                    fill="var(--fiber)"
+                  >
+                    {carrier}
+                  </text>
+                  <text
+                    x="146"
+                    y={(y(X.router) + y(X.mmr)) / 2 + 14}
+                    fontSize="13"
+                    fill="var(--muted)"
+                  >
+                    {t({ en: "MACsec if L2-transparent", ja: "L2 透過なら MACsec 可" })}
+                  </text>
+                  <text
+                    x="146"
+                    y={(y(X.mmr) + y(X.dx)) / 2 + 5}
+                    fontSize="15"
+                    fill="var(--fiber)"
+                  >
+                    {xc}
+                  </text>
+                  <text
+                    x="146"
+                    y={(y(X.dx) + y(X.gw)) / 2 - 6}
+                    fontSize="15"
+                    fill="var(--aws)"
+                  >
+                    {t({ en: "AWS backbone", ja: "AWS バックボーン" })}
+                  </text>
+                  <text
+                    x="146"
+                    y={(y(X.dx) + y(X.gw)) / 2 + 14}
+                    fontSize="15"
+                    fill="var(--muted)"
+                  >
+                    {t({ en: "encrypted by AWS (L1)", ja: "AWS が物理層で暗号化" })}
+                  </text>
+                </g>
+              );
+            })()}
+          </svg>
+        </div>
+      ) : (
+        <Scroll>
+          <svg
+            viewBox="0 0 950 250"
+            className="diagram min-w-[680px]"
+            role="group"
+            aria-label={t(C.layers)}
+          >
+            <line
+              x1={X.app}
+              x2={X.workload}
+              y1="40"
+              y2="40"
+              stroke="var(--line)"
+              strokeWidth="2"
+            />
+            <line
+              x1={X.router}
+              x2={X.mmr}
+              y1="40"
+              y2="40"
+              stroke="var(--fiber)"
+              strokeWidth="3"
+              strokeDasharray="6 4"
+            />
+            <text
+              x={(X.router + X.mmr) / 2}
+              y="30"
+              fontSize="11.2"
+              textAnchor="middle"
+              fill="var(--fiber)"
+            >
+              {carrier}
+            </text>
+            <line
+              x1={X.mmr}
+              x2={X.dx}
+              y1="40"
+              y2="40"
+              stroke="var(--fiber)"
+              strokeWidth="3"
+            />
+            <text
+              x={(X.mmr + X.dx) / 2}
+              y="30"
+              fontSize="11.2"
+              textAnchor="middle"
+              fill="var(--fiber)"
+            >
+              {xc}
+            </text>
+            <line
+              x1={X.dx}
+              x2={X.gw}
+              y1="40"
+              y2="40"
+              stroke="var(--aws)"
+              strokeWidth="3"
+            />
+            <text
+              x={(X.dx + X.gw) / 2}
+              y="30"
+              fontSize="11.2"
+              textAnchor="middle"
+              fill="var(--aws)"
+            >
+              {t({
+                en: "AWS backbone (AWS physical-layer encryption)",
+                ja: "AWS バックボーン (AWS が物理層で暗号化)",
+              })}
+            </text>
+            {nodes.map(([x, label]) => (
+              <g key={label}>
+                <circle
+                  cx={x}
+                  cy="40"
+                  r="7"
+                  fill="var(--panel)"
+                  stroke="var(--ink)"
+                  strokeWidth="2"
+                />
+                <text
+                  x={x}
+                  y="66"
+                  fontSize="12.5"
+                  textAnchor="middle"
+                  fill="var(--muted)"
+                >
+                  {label}
+                </text>
+              </g>
+            ))}
+            {(Object.keys(LAYERS) as Layer[]).map((k, i) => {
+              const l = LAYERS[k];
+              const y = 95 + i * 50;
+              const on = focus === k;
+              return (
+                <g
+                  key={k}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={on}
+                  // Named by its drawn labels (WCAG 2.5.3, label in name).
+                  className="cursor-pointer"
+                  onClick={() => setFocus(k)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setFocus(k);
+                    }
+                  }}
+                >
+                  {l.maybeFrom !== undefined && (
+                    <>
+                      <rect
+                        x={l.maybeFrom}
+                        y={y}
+                        width={l.from - l.maybeFrom - 4}
+                        height="30"
+                        rx="15"
+                        fill={l.color}
+                        fillOpacity={on ? 0.1 : 0.04}
+                        stroke={l.color}
+                        strokeWidth="1.2"
+                        strokeDasharray="3 4"
+                      />
+                      <text
+                        x={(l.maybeFrom + l.from) / 2}
+                        y={y + 19}
+                        fontSize="11.2"
+                        textAnchor="middle"
+                        fill={l.color}
+                      >
+                        {maybe}
+                      </text>
+                    </>
+                  )}
+                  <rect
+                    x={l.from}
+                    y={y}
+                    width={l.to - l.from}
+                    height="30"
+                    rx="15"
+                    fill={l.color}
+                    fillOpacity={on ? 0.22 : 0.08}
+                    stroke={l.color}
+                    strokeWidth={on ? 2.5 : 1.5}
+                    strokeDasharray={on ? undefined : "4 4"}
+                  />
+                  <text
+                    x={(l.from + l.to) / 2}
+                    y={y + 19}
+                    fontSize="13.8"
+                    textAnchor="middle"
+                    fill={l.color}
+                  >
+                    {l.label}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+        </Scroll>
+      )}
+      <p aria-live="polite" className="mt-3 text-sm leading-relaxed">
+        <span className="font-mono font-semibold" style={{ color: LAYERS[focus].color }}>
+          {LAYERS[focus].label}
+        </span>{" "}
+        — {t(LAYERS[focus].body)}
+      </p>
+    </Panel>
+  );
+}
+
+const PICK: [L, string][] = [
+  [
+    {
+      en: "10G+ dedicated, only the hop into the AWS device needs protecting, need line rate",
+      ja: "10G 以上の専用接続、守るべきは AWS 機器までの 1 区間だけ、ラインレートが必要",
+    },
+    "MACsec",
+  ],
+  [
+    { en: "1G dedicated or any hosted connection", ja: "1G 専用接続またはホスト接続" },
+    "IPsec",
+  ],
+  [
+    {
+      en: "Compliance demands encryption to the VPC edge",
+      ja: "VPC 境界までの暗号化がコンプライアンス要件",
+    },
+    "Private IP VPN (+ MACsec)",
+  ],
+  [
+    { en: "No public IP addresses allowed", ja: "パブリック IP を使えない" },
+    "Private IP VPN",
+  ],
+  [{ en: "Defense in depth", ja: "多層防御" }, "MACsec + TLS / IPsec + TLS"],
+];
+
+const CHECKS: L[] = [
+  {
+    en: "Decide the encryption requirement explicitly — DX alone does not encrypt.",
+    ja: "暗号化要件を明示的に決める — DX 単体は暗号化しない。",
+  },
+  {
+    en: "Use MACsec on 10/100/400G dedicated ports; alarm on ConnectionEncryptionState; consider must_encrypt.",
+    ja: "10/100/400G 専用ポートでは MACsec を使い、ConnectionEncryptionState にアラームを設定。must_encrypt も検討。",
+  },
+  {
+    en: "Restrict DXGW allowed prefixes to what each VPC / TGW needs.",
+    ja: "DXGW の許可されたプレフィックスを各 VPC / TGW に必要な範囲に絞る。",
+  },
+  {
+    en: "Centralize DX in a network account; deny directconnect:Create* / Allocate* / Accept* elsewhere with SCPs.",
+    ja: "DX はネットワークアカウントに集約し、他アカウントでは SCP で directconnect:Create* / Allocate* / Accept* を拒否。",
+  },
+  {
+    en: "Send CloudTrail centrally; alert on VIF creation and DXGW association changes.",
+    ja: "CloudTrail を集中管理し、VIF 作成や DXGW 関連付けの変更を検知・通知。",
+  },
+  {
+    en: "BGP MD5 is mandatory and TTL is 1 (no multihop).",
+    ja: "BGP MD5 は必須、TTL は 1 (マルチホップ不可)。",
+  },
+];
+
+export function Security() {
+  const { t } = useLang();
+  return (
+    <Section
+      id="security"
+      index="08"
+      kicker={C.kicker}
+      title={C.title}
+      lead={C.lead}
+      layers={["link", "routing"]}
+    >
+      <div className="mb-8 max-w-3xl">
+        <PlainWords mood="worried">
+          <T
+            c={{
+              en: "“It's a closed network, so it's safe” is the most common assumption — and closed is not encrypted. Your frames cross the cross connect, maybe a carrier network, and the AWS device in plain text unless you add a layer that encrypts.",
+              ja: "「閉域網だから安全」はいちばん多い思い込みです。閉域 ≠ 暗号化。暗号化レイヤーを足さない限り、フレームはクロスコネクトも、キャリア網も、AWS の機器も平文のまま通ります。",
+            }}
+          />
+        </PlainWords>
+      </div>
+      <h3 className="mb-4 text-xl font-extrabold">{t(C.layers)}</h3>
+      <LayerDiagram />
+      <div className="mt-12 grid gap-8 lg:grid-cols-2">
+        <div>
+          <h3 className="mb-4 text-xl font-extrabold">{t(C.pickTitle)}</h3>
+          <table className="w-full border-collapse text-sm">
+            <tbody>
+              {PICK.map(([need, pick]) => (
+                <tr key={need.en} className="border-b border-[var(--line)] align-top">
+                  <td className="py-2.5 pr-4">{t(need)}</td>
+                  <td className="py-2.5 font-mono text-[var(--fiber)] sm:whitespace-nowrap">
+                    {pick}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3 className="mb-4 text-xl font-extrabold">{t(C.checklist)}</h3>
+          <ul className="space-y-2 text-sm">
+            {CHECKS.map((c) => (
+              <li key={c.en} className="flex gap-2">
+                <span className="text-[var(--ok)]">☐</span>
+                <T c={c} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="mt-8 max-w-3xl">
+        <Callout tone="warn" title={C.publicTitle}>
+          <T c={C.public} />
+        </Callout>
+      </div>
+    </Section>
+  );
+}

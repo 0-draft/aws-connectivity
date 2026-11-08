@@ -243,3 +243,25 @@ input[type="range"] {
 .prose-ish p + p {
   margin-top: 0.75rem;
 }
+
+/* The Direct Connect deep dive (direct-connect/) was written against its own
+   token names. Map them onto the road-map palette here, so the page follows
+   the site's themes and DX keeps its route colour. */
+.dx-deep {
+  --panel: var(--paper);
+  --panel-2: var(--paper-2);
+  --fiber: var(--r-dx);
+  --fiber-soft: color-mix(in srgb, var(--r-dx) 8%, var(--paper));
+  --aws: var(--r-private);
+  --aws-soft: color-mix(in srgb, var(--r-private) 8%, var(--paper));
+  --violet: var(--r-sdwan);
+  --violet-soft: color-mix(in srgb, var(--r-sdwan) 8%, var(--paper));
+  --ok-soft: color-mix(in srgb, var(--ok) 8%, var(--paper));
+  --bad-soft: color-mix(in srgb, var(--bad) 8%, var(--paper));
+  --sun: var(--lane);
+  --on-accent: var(--on-color);
+  --dot: var(--grid);
+}
+.dx-deep .sticker {
+  box-shadow: 0 4px 0 -1px var(--shadow);
+}

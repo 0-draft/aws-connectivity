@@ -4,6 +4,7 @@ import { useLang } from "@/i18n/useLang";
 import { ROUTE } from "@/data/routes";
 import { Callout, Section, Segmented, Shield, Sources } from "@/components/ui";
 import { LAUNCHES, RECENT_FROM, byYear, filterLaunches, type Family } from "./data";
+import { DX_DEEP } from "@/data/site";
 
 const FAMILY: Record<Family, { shield: string; color: string; name: L }> = {
   vpn: {
@@ -128,14 +129,11 @@ export function TimelineSection() {
         <div className="mt-4">
           <Callout tone="info">
             {t({
-              en: "Direct Connect's own history, launch by launch, is in Cross Connect: ",
-              ja: "Direct Connect だけの詳しい年表は Cross Connect にあります: ",
+              en: "Direct Connect's own history, launch by launch, is in the DX deep dive: ",
+              ja: "Direct Connect だけの詳しい年表は DX 深掘りのページにあります: ",
             })}
-            <a
-              className="font-bold underline"
-              href="https://0-draft.github.io/cross-connect/#timeline"
-            >
-              Cross Connect: {t({ en: "Timeline", ja: "年表" })}
+            <a className="font-bold underline" href={`${DX_DEEP}#timeline`}>
+              {t({ en: "DX deep dive: Timeline", ja: "DX 深掘り: 年表" })}
             </a>
           </Callout>
         </div>

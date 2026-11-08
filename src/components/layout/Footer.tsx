@@ -1,5 +1,6 @@
 import { useLang } from "@/i18n/useLang";
 import { AS_OF } from "@/data/asOf";
+import { DX_DEEP } from "@/data/site";
 import { ROUTES } from "@/data/routes";
 import { Shield } from "@/components/ui";
 
@@ -8,10 +9,10 @@ const C = {
     en: "Independent explainer, not affiliated with or endorsed by Amazon Web Services. Prices and quotas change; check the AWS documentation before you design or buy.",
     ja: "AWS とは無関係の非公式解説です。料金やクォータは変わるので、設計・購入前に必ず AWS 公式ドキュメントを確認してください。",
   },
-  asOf: {
-    en: `Facts verified against AWS documentation, What's New posts and the AWS Price List API as of ${AS_OF}. Prices are USD list prices.`,
-    ja: `記載内容は ${AS_OF} 時点の AWS 公式ドキュメント・What's New・Price List API で確認済み。料金は USD の表示価格です。`,
-  },
+  asOf: (d: string) => ({
+    en: `Facts verified against AWS documentation, What's New posts and the AWS Price List API as of ${d}. Prices are USD list prices.`,
+    ja: `記載内容は ${d} 時点の AWS 公式ドキュメント・What's New・Price List API で確認済み。料金は USD の表示価格です。`,
+  }),
   notes: {
     en: "Research notes (Markdown, with sources)",
     ja: "調査ノート (Markdown・出典つき)",
@@ -19,7 +20,14 @@ const C = {
   more: { en: "Go deeper", ja: "さらに深く" },
 };
 
-export function Footer() {
+/**
+ * `home` prefixes every link back into the road map: empty on the map itself,
+ * the site root on a deep-dive page.
+ */
+export function Footer({
+  home = "",
+  asOf = AS_OF,
+}: { home?: string; asOf?: string } = {}) {
   const { t } = useLang();
   return (
     <footer className="mt-16 border-t-4 border-[var(--lane)] bg-[var(--sign)] py-10 text-[var(--sign-ink)]">
@@ -33,7 +41,7 @@ export function Footer() {
             {ROUTES.map((r) => (
               <li key={r.id}>
                 <a
-                  href={`#${r.section}`}
+                  href={`${home}#${r.section}`}
                   title={t(r.name)}
                   // Lead with the visible shield text so voice users can say
                   // what they see (WCAG 2.5.3 Label in Name).
@@ -45,17 +53,20 @@ export function Footer() {
               </li>
             ))}
           </ul>
-          <a href="#top" className="ml-auto font-bold underline">
+          <a href={`${home}#top`} className="ml-auto font-bold underline">
             {t({ en: "Back to the map ↑", ja: "地図に戻る ↑" })}
           </a>
         </div>
-        <p>{t(C.asOf)}</p>
+        <p>{t(C.asOf(asOf))}</p>
         <p>{t(C.disclaimer)}</p>
         <p className="mt-2 font-bold">{t(C.more)}</p>
         <ul className="flex flex-wrap gap-x-5 gap-y-1">
           <li>
-            <a className="underline" href="https://0-draft.github.io/cross-connect/">
-              Cross Connect — AWS Direct Connect
+            <a className="underline" href={DX_DEEP}>
+              {t({
+                en: "Direct Connect, up close (this site)",
+                ja: "Direct Connect を深掘り (このサイト内)",
+              })}
             </a>
           </li>
           <li>

@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLang } from "@/i18n/useLang";
+import type { L } from "@/i18n/lang";
 import { NAV } from "@/data/nav";
+
+export type NavItem = { id: string; label: L };
 
 type Theme = "system" | "light" | "dark";
 const THEME_KEY = "on-ramp:theme";
@@ -19,7 +22,7 @@ function readTheme(): Theme {
  * as current once its top passes 35% of the viewport; above the first exit
  * (the hero map) nothing is current.
  */
-function usePosition(): { active: string; progress: number } {
+function usePosition(nav: NavItem[]): { active: string; progress: number } {
   const [pos, setPos] = useState({ active: "", progress: 0 });
   useEffect(() => {
     let frame = 0;
@@ -27,7 +30,7 @@ function usePosition(): { active: string; progress: number } {
       frame = 0;
       const line = window.innerHeight * 0.35;
       let active = "";
-      for (const n of NAV) {
+      for (const n of nav) {
         const el = document.getElementById(n.id);
         if (el && el.getBoundingClientRect().top <= line) active = n.id;
       }
@@ -50,7 +53,7 @@ function usePosition(): { active: string; progress: number } {
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [nav]);
   return pos;
 }
 
@@ -90,12 +93,24 @@ function ThemeIcon({ theme }: { theme: Theme }) {
 /**
  * The gantry over the road: the site mark, every exit, the language and theme
  * switches, and a progress stripe in the yellow lane line. On phones the exit
- * strip becomes a "you are here" button that opens the full list.
+ * strip becomes a "you are here" button that opens the full list. A deep-dive
+ * page passes its own stops, a stop label and a link back to the map.
  */
-export function Header() {
+export function Header({
+  nav = NAV,
+  stopLabel = { en: "Exit", ja: "出口" },
+  back,
+  numberOf = (i) => String(i + 1),
+}: {
+  nav?: NavItem[];
+  stopLabel?: L;
+  back?: { href: string; label: L };
+  /** The number shown for the i-th stop; must match the section headings. */
+  numberOf?: (i: number) => string;
+} = {}) {
   const { lang, setLang, t } = useLang();
   const [theme, setTheme] = useState<Theme>(readTheme);
-  const { active, progress } = usePosition();
+  const { active, progress } = usePosition(nav);
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   // Fade only the edge that has more exits beyond it.
@@ -169,16 +184,17 @@ export function Header() {
     light: { en: "Theme: day", ja: "テーマ: 昼" },
   }[theme];
 
-  const idx = NAV.findIndex((n) => n.id === active);
-  const current = idx >= 0 ? NAV[idx] : null;
+  const idx = nav.findIndex((n) => n.id === active);
+  const current = idx >= 0 ? nav[idx] : null;
 
   return (
     <header className="sticky top-0 z-40 bg-[var(--sign)] text-[var(--sign-ink)] shadow-md">
       <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-1.5 sm:gap-3 sm:px-6">
         <a
-          href="#top"
+          href={back ? back.href : "#top"}
           className="flex min-h-10 shrink-0 items-center gap-1.5 font-black tracking-tight"
-          aria-label="On-ramp"
+          aria-label={back ? `On-ramp: ${t(back.label)}` : "On-ramp"}
+          title={back ? t(back.label) : undefined}
         >
           <svg viewBox="0 0 64 64" className="h-6 w-6" aria-hidden="true">
             <path
@@ -212,14 +228,14 @@ export function Header() {
           }}
         >
           <ol className="flex gap-1 whitespace-nowrap">
-            {NAV.map((n, i) => (
+            {nav.map((n, i) => (
               <li key={n.id} className="snap-start">
                 <a
                   href={`#${n.id}`}
                   aria-current={active === n.id ? "location" : undefined}
                   className="inline-flex min-h-9 items-center gap-1.5 rounded-md px-2 py-1 text-sm font-semibold hover:bg-[var(--sign-2)] aria-[current=location]:bg-[var(--sign-ink)] aria-[current=location]:text-[var(--sign)]"
                 >
-                  <span className="text-xs">{i + 1}</span>
+                  <span className="text-xs">{numberOf(i)}</span>
                   {t(n.label)}
                 </a>
               </li>
@@ -240,8 +256,8 @@ export function Header() {
             {current ? (
               <>
                 <span className="shrink-0 rounded bg-[var(--sign-ink)] px-1.5 text-xs text-[var(--sign)]">
-                  <span className="sr-only">{t({ en: "Exit", ja: "出口" })} </span>
-                  {idx + 1}
+                  <span className="sr-only">{t(stopLabel)} </span>
+                  {numberOf(idx)}
                 </span>
                 <span className="truncate">{t(current.label)}</span>
               </>
@@ -260,7 +276,7 @@ export function Header() {
             >
               <nav aria-label={t({ en: "All exits", ja: "出口一覧" })}>
                 <ol className="grid grid-cols-1 gap-1">
-                  {NAV.map((n, i) => (
+                  {nav.map((n, i) => (
                     <li key={n.id}>
                       <a
                         href={`#${n.id}`}
@@ -268,7 +284,7 @@ export function Header() {
                         aria-current={active === n.id ? "location" : undefined}
                         className="flex min-h-11 items-center gap-3 rounded-md px-2 font-semibold hover:bg-[var(--sign-2)] aria-[current=location]:bg-[var(--sign-ink)] aria-[current=location]:text-[var(--sign)]"
                       >
-                        <span className="w-6 text-right text-xs">{i + 1}</span>
+                        <span className="w-6 text-right text-xs">{numberOf(i)}</span>
                         {t(n.label)}
                       </a>
                     </li>

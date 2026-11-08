@@ -1,4 +1,5 @@
 import type { L } from "@/i18n/lang";
+import { DX_DEEP } from "@/data/site";
 
 export interface QuizCard {
   claim: L;
@@ -10,7 +11,7 @@ export interface QuizCard {
   deeper?: string;
 }
 
-const CC_MYTHS = "https://0-draft.github.io/cross-connect/#myths";
+const CC_MYTHS = `${DX_DEEP}#myths`;
 
 /** Each card is a confusion point from the research, with its documented answer. */
 export const CARDS: QuizCard[] = [

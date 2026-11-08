@@ -314,5 +314,5 @@ DX_EDGE(dst) for private/transit VIFs:
 - <https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-inspection-architecture-with-aws-gateway-load-balancer-and-aws-transit-gateway/>
 - <https://repost.aws/knowledge-center/direct-connect-manage-asymmetric-routing>
 - <https://repost.aws/knowledge-center/vpn-bgp-logs-troubleshoot-tunnel>
-- <https://github.com/0-draft/cross-connect/blob/main/docs/06-bgp-and-routing.md>
-- <https://github.com/0-draft/cross-connect/blob/main/docs/07-resiliency.md>
+- [direct-connect/06-bgp-and-routing.md](direct-connect/06-bgp-and-routing.md)
+- [direct-connect/07-resiliency.md](direct-connect/07-resiliency.md)

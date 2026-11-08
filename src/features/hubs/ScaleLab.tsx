@@ -3,6 +3,7 @@ import type { L } from "@/i18n/lang";
 import { useLang } from "@/i18n/useLang";
 import { Slider } from "@/components/ui/Slider";
 import { plan, type Design } from "./scale";
+import { DX_DEEP } from "@/data/site";
 
 const DESIGNS: { id: Design; name: L; how: L }[] = [
   {
@@ -167,13 +168,10 @@ export function ScaleLab() {
           en: "Assumes one dedicated DX connection per site, VPCs spread evenly across Regions, and no more Regions than VPCs. Region links are Transit Gateway peerings you route with static routes. Hub charge is per month at Tokyo list prices, 730 hours: VPC, DX and peering attachment-hours (TGW $0.07/h, each peering counted once) or core network edges ($0.50/h) plus attachments ($0.09/h). Data processing ($0.02/GB on both), DX ports and data transfer come on top.",
           ja: "前提: 各拠点に専用 DX 接続 1 本、VPC はリージョンに均等配置、リージョン数は VPC 数以下。リージョン間接続は静的ルートで運用する Transit Gateway ピアリング。ハブ料金は東京の定価・730 時間の月額で、VPC・DX・ピアリングのアタッチメント時間 (TGW $0.07/時、ピアリングは 1 本 1 回分) またはコアネットワークエッジ ($0.50/時) + アタッチメント ($0.09/時)。データ処理料 (どちらも $0.02/GB)、DX ポート、データ転送は別途。",
         })}{" "}
-        <a
-          className="font-bold underline"
-          href="https://0-draft.github.io/cross-connect/#pricing"
-        >
+        <a className="font-bold underline" href={`${DX_DEEP}#pricing`}>
           {t({
-            en: "DX port and transfer prices: Cross Connect",
-            ja: "DX のポート・転送料金: Cross Connect",
+            en: "DX port and transfer prices: DX deep dive",
+            ja: "DX のポート・転送料金: DX 深掘り",
           })}
         </a>
       </p>

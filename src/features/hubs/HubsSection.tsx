@@ -5,6 +5,7 @@ import { Predict } from "@/components/ui/Predict";
 import { ScaleLab } from "./ScaleLab";
 import { ApplianceLab } from "./ApplianceLab";
 import { HubSketch, type HubKind } from "./HubSketch";
+import { DX_DEEP } from "@/data/site";
 
 interface Hub {
   kind: HubKind;
@@ -249,13 +250,10 @@ export function HubsSection() {
             en: "Allowed prefixes, association modes and SiteLink, with a lab:",
             ja: "許可されたプレフィックス・関連付けのモード・SiteLink はラボ付きで:",
           })}{" "}
-          <a
-            className="font-bold underline"
-            href="https://0-draft.github.io/cross-connect/#gateway"
-          >
+          <a className="font-bold underline" href={`${DX_DEEP}#gateway`}>
             {t({
-              en: "Cross Connect: Direct Connect gateway",
-              ja: "Cross Connect: Direct Connect ゲートウェイ",
+              en: "DX deep dive: Direct Connect gateway",
+              ja: "DX 深掘り: Direct Connect ゲートウェイ",
             })}
           </a>
         </p>

@@ -4,6 +4,7 @@ import { Callout, Section, Sources } from "@/components/ui";
 import type { L } from "@/i18n/lang";
 import type { Term } from "./data";
 import { GLOSSARY, matches } from "./data";
+import { DX_DEEP } from "@/data/site";
 
 export function GlossarySection() {
   const { t } = useLang();
@@ -84,11 +85,8 @@ export function GlossarySection() {
                           en: "Direct Connect terms (VIFs, LAG, LOA-CFA, SiteLink and more) are covered in depth in ",
                           ja: "Direct Connect の用語 (VIF・LAG・LOA-CFA・SiteLink など) は、こちらで詳しく: ",
                         })}
-                        <a
-                          className="font-bold underline"
-                          href="https://0-draft.github.io/cross-connect/#glossary"
-                        >
-                          Cross Connect: {t({ en: "Glossary", ja: "用語集" })}
+                        <a className="font-bold underline" href={`${DX_DEEP}#glossary`}>
+                          {t({ en: "DX deep dive: Glossary", ja: "DX 深掘り: 用語集" })}
                         </a>
                       </Callout>
                     </div>

@@ -4,8 +4,7 @@ import { useLang } from "@/i18n/useLang";
 import { Callout, DataTable, MetaphorLimit, Section, Sources } from "@/components/ui";
 import { OwnerPath } from "./OwnerPath";
 import { VIF_FACTS, type Vif } from "./model";
-
-const CC = "https://0-draft.github.io/cross-connect/";
+import { DX_DEEP, pageUrl } from "@/data/site";
 
 const VIFS: [Vif, L][] = [
   ["private", { en: "Private VIF", ja: "プライベート VIF" }],
@@ -13,7 +12,7 @@ const VIFS: [Vif, L][] = [
   ["public", { en: "Public VIF", ja: "パブリック VIF" }],
 ];
 
-/** Deep links into the sibling explainer, one per part it already covers in depth. */
+/** Deep links into the Direct Connect deep dive, one per part it covers in depth. */
 const DEEP: { hash: string; title: L; what: L }[] = [
   {
     hash: "connections",
@@ -98,15 +97,16 @@ const DEEP: { hash: string; title: L; what: L }[] = [
 ];
 
 function Deep({ hash, children }: { hash: string; children: ReactNode }) {
+  const { lang } = useLang();
   return (
-    <a className="font-bold underline" href={`${CC}#${hash}`}>
+    <a className="font-bold underline" href={pageUrl(DX_DEEP, lang, hash)}>
       {children}
     </a>
   );
 }
 
 export function DxSection() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   return (
     <Section
       id="dx"
@@ -128,7 +128,7 @@ export function DxSection() {
           ja: "よくある誤解は「DX は AWS が提供する専用線」というもの。実際に AWS が提供するのはロケーション内のポートとその先だけです。障害時はまず「誰の区間か」を切り分けます。区間をタップし、暗号化を足すと実際にどの区間が守られるかが見えます。",
         })}{" "}
         <Deep hash="why">
-          {t({ en: "Cross Connect: who owns what", ja: "Cross Connect: 誰が何を持つか" })}
+          {t({ en: "DX deep dive: who owns what", ja: "DX 深掘り: 誰が何を持つか" })}
         </Deep>
       </p>
       <div className="mt-4">
@@ -140,7 +140,7 @@ export function DxSection() {
           ja: "閉域 ≠ 暗号化: DX は通信をインターネットから隔離しますが、中身は平文のまま流れます。通信経路の暗号化が要件なら、MACsec かプライベート IP VPN (自社ルーターから Transit Gateway まで) を足すか、アプリ側で TLS を使います。",
         })}{" "}
         <Deep hash="security">
-          Cross Connect: {t({ en: "Security", ja: "セキュリティ" })}
+          {t({ en: "DX deep dive: Security", ja: "DX 深掘り: セキュリティ" })}
         </Deep>
       </p>
 
@@ -153,7 +153,7 @@ export function DxSection() {
           ja: "専用接続は自社専用のポートで 1・10・100・400 Gbps (400G は日本では未提供)。仮想インターフェイスは最大 51 個 (プライベート/パブリック最大 50・トランジット最大 4) まで作れます。ホスト接続 (50 Mbps〜25 Gbps) はパートナーのポートから切り出したもので VIF はちょうど 1 つ。ホスト VIF は他社の接続上の VIF 1 つです。AWS の DX SLA の対象は専用接続だけです。",
         })}{" "}
         <Deep hash="connections">
-          Cross Connect: {t({ en: "Connections", ja: "接続" })}
+          {t({ en: "DX deep dive: Connections", ja: "DX 深掘り: 接続" })}
         </Deep>
       </p>
 
@@ -197,7 +197,7 @@ export function DxSection() {
           en: "Route limits, SiteLink and the jumbo-frame details differ per type:",
           ja: "経路数の上限・SiteLink・ジャンボフレームの細部は種類ごとに違います:",
         })}{" "}
-        <Deep hash="vifs">Cross Connect: VIF</Deep>
+        <Deep hash="vifs">{t({ en: "DX deep dive: VIF", ja: "DX 深掘り: VIF" })}</Deep>
       </p>
 
       <h3 className="mt-10 text-xl font-extrabold">
@@ -209,7 +209,7 @@ export function DxSection() {
           ja: "ロケーション障害に耐えられるのは 2 つの DX ロケーションにまたがる構成だけで、マルチサイト SLA の対象もそれだけ。2 ロケーションそれぞれで別デバイスに 2 接続ずつ (計 4 接続以上) で 99.99%、1 接続ずつで 99.9%。マルチサイト SLA はエンタープライズサポートと 2 つ以上の AZ のエンドポイントが条件で、99.99% はさらに AWS SA による Well-Architected レビューが必要です。専用接続 1 本は 95%、ホスト接続は対象外。",
         })}{" "}
         <Deep hash="resiliency">
-          Cross Connect: {t({ en: "Resiliency", ja: "冗長性" })}
+          {t({ en: "DX deep dive: Resiliency", ja: "DX 深掘り: 冗長性" })}
         </Deep>
       </p>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -320,19 +320,22 @@ export function DxSection() {
 
       <aside className="sign mt-8 p-5 sm:p-6" aria-labelledby="dx-deeper">
         <h3 id="dx-deeper" className="text-xl font-extrabold">
-          {t({ en: "Go deeper in Cross Connect", ja: "詳しくは Cross Connect へ" })}
+          {t({
+            en: "Go deeper: Direct Connect, up close",
+            ja: "さらに詳しく: Direct Connect を深掘り",
+          })}
         </h3>
         <p className="mt-1">
           {t({
-            en: "This page treats DX as one road among many. The sibling explainer draws every part of it, with its own labs.",
-            ja: "このページでは DX を数ある道の 1 本として扱っています。姉妹サイトでは DX のすべてを、専用のラボ付きで図解しています。",
+            en: "This exit treats DX as one road among many. The deep dive page draws every part of it, with its own labs.",
+            ja: "この出口では DX を数ある道の 1 本として扱っています。深掘りのページでは DX のすべてを、専用のラボ付きで図解しています。",
           })}
         </p>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {DEEP.map((d) => (
             <li key={d.hash}>
               <a
-                href={`${CC}#${d.hash}`}
+                href={pageUrl(DX_DEEP, lang, d.hash)}
                 className="block h-full rounded-lg bg-[var(--paper)] px-3 py-2 text-[var(--ink)] hover:bg-[var(--paper-2)]"
               >
                 <span className="font-extrabold">{t(d.title)}</span>

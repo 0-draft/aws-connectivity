@@ -3,7 +3,8 @@ import type { L } from "@/i18n/lang";
 /**
  * Direct Connect facts the DX section draws from, as plain data and pure
  * functions (docs/04-direct-connect.md, verified as of AS_OF in @/data/asOf). Depth (prefix
- * limits, SiteLink, the full MTU table) lives in Cross Connect, not here.
+ * limits, SiteLink, the full MTU table) lives in the DX deep dive
+ * (src/features/direct-connect), not here.
  */
 
 export type Vif = "private" | "transit" | "public";

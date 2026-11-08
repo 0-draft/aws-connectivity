@@ -9,6 +9,19 @@ import {
   gbAt,
   SLIDER,
 } from "./cost";
+import { DTO_PER_GB, FLAT_RATE_HOURLY, PORT_HOURLY } from "@/data/dxPricing";
+
+describe("DX prices come from the shared price list", () => {
+  it("uses the Japan columns of @/data/dxPricing", () => {
+    expect(P.dxDedicated1g).toBe(PORT_HOURLY.dedicated[1000][1]);
+    expect(P.dxDedicated10g).toBe(PORT_HOURLY.dedicated[10000][1]);
+    expect(P.dxHosted50m).toBe(PORT_HOURLY.hosted[50][1]);
+    expect(P.dxHosted500m).toBe(PORT_HOURLY.hosted[500][1]);
+    expect(P.dxHosted1g).toBe(PORT_HOURLY.hosted[1000][1]);
+    expect(P.dxDtoJapan).toBe(DTO_PER_GB["tokyo-osaka"].japan);
+    expect(P.dxFlat10gTier1).toBe(FLAT_RATE_HOURLY[10000][0]);
+  });
+});
 
 const TEN_TB = 10_240;
 const noTgw = { gb: TEN_TB, viaTgw: false, freeTier: false };
