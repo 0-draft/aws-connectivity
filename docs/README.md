@@ -20,3 +20,7 @@ Everything the site says is backed by these notes. Each page ends with the AWS d
 | 14 | [Why hybrid is hard](14-why-hybrid-is-hard.md) | Ranked confusion points with evidence and the site's fix for each |
 | 15 | [Timeline](15-timeline.md) | Launches from 2009 to 2026 |
 | 16 | [Glossary](16-glossary.md) | Terms with official Japanese names and what each is confused with |
+
+## Direct Connect deep dive
+
+[direct-connect/](direct-connect/README.md) holds the research notes behind the site's second page, the Direct Connect deep dive (`direct-connect/` on the site). They were the separate 0-draft/cross-connect repository until 2026-11-08. [direct-connect/10-pricing.md](direct-connect/10-pricing.md) is the only Direct Connect price list in this repository; the other pages link to it.

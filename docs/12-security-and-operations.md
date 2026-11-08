@@ -116,20 +116,6 @@ flowchart LR
 | Internet DTO over 150 TB | per GB | 0.084 |
 | Data transfer in (internet, VPN, DX) | per GB | 0.00 |
 | Inter-Region out (Tokyo → any listed Region, e.g. Osaka, us-east-1) | per GB | 0.09 |
-| DX DTO Tokyo → Japan DX locations (Equinix TY2, AT Tokyo Chuo, NEC Inzai, Equinix OS1) | per GB | 0.041 |
-| DX DTO Tokyo → Equinix SG2, Taipei locations | per GB | 0.041 |
-| DX DTO Tokyo → Equinix LD4–LD6 (London) | per GB | 0.06 |
-| DX DTO Tokyo → Equinix SV1/SV5 (Silicon Valley) | per GB | 0.09 |
-| DX dedicated port 1 Gbps (Japan locations) | per hour | 0.285 |
-| DX dedicated port 10 Gbps | per hour | 2.142 |
-| DX dedicated port 100 Gbps (AT Tokyo Chuo, NEC Inzai) | per hour | 22.50 |
-| DX hosted 50 / 100 / 200 / 300 / 400 / 500 Mbps | per hour | 0.029 / 0.057 / 0.076 / 0.114 / 0.152 / 0.190 |
-| DX hosted 1 / 2 / 5 / 10 Gbps | per hour | 0.314 / 0.627 / 1.568 / 2.361 |
-| DX flat-rate 10G, Tier 1 / 2 / 3 (single port) | per hour | 10.96 / 17.12 / 23.29 |
-| DX flat-rate 10G port-pair, per port, Tier 1 / 2 / 3 | per hour | 5.48 / 8.56 / 11.64 |
-| DX flat-rate 100G, Tier 1 / 2 / 3 (single port) | per hour | 102.74 / 160.96 / 219.18 |
-| DX flat-rate 100G port-pair, per port, Tier 1 / 2 / 3 | per hour | 51.37 / 80.48 / 109.59 |
-| DX SiteLink | per VIF-hour | 0.50 |
 | Site-to-Site VPN connection (1.25 Gbps tunnels) | per hour | 0.048 |
 | Site-to-Site VPN connection, 5 Gbps tunnels | per hour | 0.60 |
 | Site-to-Site VPN Concentrator / site on concentrator | per hour | 1.95 / 0.01 |
@@ -146,7 +132,7 @@ flowchart LR
 | DataSync Basic / Enhanced | per GB (+0.55 per Enhanced execution) | 0.0125 / 0.015 |
 | Transfer Family protocol / data | per hour, per GB | 0.30, 0.04 |
 
-Flat-rate Direct Connect (2026-09) applies to 10G and 100G **dedicated** connections only. It zeroes DTO between the DX location and the Regions in the chosen tier (Tier 1 local metro … Tier 5 global); traffic from Regions outside the tier pays standard DX DTO. The second port of a port-pair is included at no extra charge (the pair rate is exactly half the single-port rate per port). For ap-northeast-1, the Price List API marks all four Japan locations (including Equinix OS1, Osaka) as Tier 1, Equinix SG2 and Silicon Valley as Tier 3, London as Tier 4, Taipei as Tier 5. All connections at one DX location in an account must use the same billing mode. TGW/Cloud WAN processing, SiteLink transfer and partner fees are not covered.
+Direct Connect unit prices (port-hours, DTO from Tokyo, SiteLink, flat-rate tiers) are not repeated here. They live in one table, [direct-connect/10-pricing.md](direct-connect/10-pricing.md#japan-locations-from-the-aws-price-list-api), which the worked example below uses.
 
 ### Worked example: 10 TB/month from ap-northeast-1 to on-prem
 

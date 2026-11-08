@@ -1,6 +1,6 @@
 # AWS Direct Connect as a path
 
-This page summarizes AWS Direct Connect (DX) as one of the paths between a corporate network and AWS: connection types and speeds, the three virtual interface (VIF) types and what each reaches, the Direct Connect gateway (DXGW), SiteLink, MACsec, resiliency models and the SLA, MTU, prefix limits, pricing (with Tokyo and Osaka figures), Japanese carrier closed-network services that embed DX, and lead times. It is a summary. The sibling repository [0-draft/cross-connect](https://github.com/0-draft/cross-connect/tree/main/docs) covers DX in much more depth, and this page links to it where it helps. Facts were re-verified against AWS documentation, What's New posts, the SLA page and the AWS Price List API as of 2026-10-10.
+This page summarizes AWS Direct Connect (DX) as one of the paths between a corporate network and AWS: connection types and speeds, the three virtual interface (VIF) types and what each reaches, the Direct Connect gateway (DXGW), SiteLink, MACsec, resiliency models and the SLA, MTU, prefix limits, pricing (with Tokyo and Osaka figures), Japanese carrier closed-network services that embed DX, and lead times. It is a summary. The Direct Connect deep dive in [direct-connect/](direct-connect/README.md) covers DX in much more depth (it was the separate 0-draft/cross-connect repository until 2026-11-08), and this page links to it where it helps. Facts were re-verified against AWS documentation, What's New posts, the SLA page and the AWS Price List API as of 2026-10-10.
 
 ## Where DX sits among the paths
 
@@ -30,11 +30,11 @@ flowchart LR
 | Hosted connection | 50, 100, 200, 300, 400, 500 Mbps; 1, 2, 5, 10, 25 Gbps | A Direct Connect Delivery Partner carves it from its interconnect; you accept it | Exactly 1 (private, public or transit) | No |
 | Hosted VIF | No AWS-assigned capacity; shares the owner's link | The owner of a connection creates a VIF in your account | It is one VIF | No |
 
-- 400 Gbps dedicated ports launched in July 2024 at select locations. The DX locations page lists them only at US sites as of the cross-connect snapshot (2026-09-30); no 400 Gbps port appears in the Japan price list, so treat 400G as not available in Japan.
+- 400 Gbps dedicated ports launched in July 2024 at select locations. The DX locations page lists them only at US sites as of the deep dive's snapshot (2026-09-30); no 400 Gbps port appears in the Japan price list, so treat 400G as not available in Japan.
 - 25 Gbps hosted connections were added on 2024-04-24. Only select partners may sell 1 Gbps and above.
 - Transit VIFs work on dedicated and hosted connections of any speed. Before 2022-08 they required 1 Gbps or more, and older Japanese blog posts still say that.
 - AWS no longer accepts new partner integrations based on hosted VIFs. Partners are steered to hosted connections, which AWS polices per connection.
-- Depth: [cross-connect 02-connections](https://github.com/0-draft/cross-connect/blob/main/docs/02-connections.md).
+- Depth: [direct-connect/02-connections.md](direct-connect/02-connections.md).
 
 ## Virtual interfaces and what they reach
 
@@ -51,7 +51,7 @@ flowchart LR
 - Customer ASNs can be 2-byte private (64512 to 65534) or 4-byte; 4-byte ASNs on all VIF types were announced on 2025-09-12.
 - On a public VIF, a private customer ASN is replaced by 7224, so AS_PATH prepending is stripped. AWS treats routes learned on a public VIF as `NO_EXPORT`.
 - Gateway VPC endpoints (S3, DynamoDB) do not carry traffic that enters a VPC from DX. Use interface endpoints or a public VIF.
-- Depth: [cross-connect 04-virtual-interfaces](https://github.com/0-draft/cross-connect/blob/main/docs/04-virtual-interfaces.md).
+- Depth: [direct-connect/04-virtual-interfaces.md](direct-connect/04-virtual-interfaces.md).
 
 ## Direct Connect gateway
 
@@ -74,7 +74,7 @@ A DXGW is a global, free, control-plane object (AWS describes it as a distribute
 - Allowed prefixes are a filter for VGW associations but the literal advertisement for TGW associations. With a TGW, on-prem receives exactly the listed prefixes, even if no VPC owns them.
 - A DXGW does not transit VPC to VPC or VIF to VIF, except through SiteLink.
 - Cloud WAN gained a native DXGW attachment on 2024-11-25. It does not support allowed prefixes or the DX BGP communities; Cloud WAN Routing Policy (2025-11) is the replacement control.
-- Depth: [cross-connect 05-direct-connect-gateway](https://github.com/0-draft/cross-connect/blob/main/docs/05-direct-connect-gateway.md) and [05-hubs.md](05-hubs.md) in this repo.
+- Depth: [direct-connect/05-direct-connect-gateway.md](direct-connect/05-direct-connect-gateway.md) and [05-hubs.md](05-hubs.md) in this repo.
 
 ## SiteLink
 
@@ -88,7 +88,7 @@ SiteLink lets on-prem sites talk to each other across the AWS backbone between D
 | Private IP Site-to-Site VPN | L3 IPsec | Over a transit VIF to a Transit Gateway only (Cloud WAN cannot use its DXGW attachment as VPN transport; front it with a TGW), outer IPs private |
 | Public IP VPN over a public VIF | L3 IPsec | To the public VPN endpoints, not accelerated |
 
-MACsec is hop by hop: it encrypts the link between your MACsec device and the AWS device, which need a direct Layer 2 adjacency. If your MACsec device sits in the colocation cage, that is just the cross connect; the carrier circuit to your building is covered only if your device is at your end and the carrier passes Layer 2 through transparently (ask the carrier). 100 and 400 Gbps require GCM-AES-XPN-256; 10 Gbps allows GCM-AES-256 or the XPN variant. Only static CAK mode is supported. Depth: [cross-connect 03-lag-and-macsec](https://github.com/0-draft/cross-connect/blob/main/docs/03-lag-and-macsec.md).
+MACsec is hop by hop: it encrypts the link between your MACsec device and the AWS device, which need a direct Layer 2 adjacency. If your MACsec device sits in the colocation cage, that is just the cross connect; the carrier circuit to your building is covered only if your device is at your end and the carrier passes Layer 2 through transparently (ask the carrier). 100 and 400 Gbps require GCM-AES-XPN-256; 10 Gbps allows GCM-AES-256 or the XPN variant. Only static CAK mode is supported. Depth: [direct-connect/03-lag-and-macsec.md](direct-connect/03-lag-and-macsec.md).
 
 ## LAGs
 
@@ -108,7 +108,7 @@ A link aggregation group bundles dedicated connections of the same speed on the 
 - Hosted connections and hosted VIFs from partners are not covered by the SLA. Dedicated connections ordered through a partner are covered only if your AWS account owns them.
 - Planned maintenance is announced 14 days ahead and can last up to 4 hours. AWS says it will not take down redundant connections at the same time.
 - Flat-rate billing (2026-09-15) includes a free second port in a "port-pair" on a different device or location, but usable bandwidth stays at one port.
-- Depth: [cross-connect 07-resiliency](https://github.com/0-draft/cross-connect/blob/main/docs/07-resiliency.md).
+- Depth: [direct-connect/07-resiliency.md](direct-connect/07-resiliency.md).
 
 ## Failure detection
 
@@ -145,51 +145,12 @@ Exceeding an inbound allocation drops the BGP session to Idle (reported DOWN). W
 
 ## Pricing summary
 
-All prices are USD list, pay-as-you-go, from the AWS Price List API (Direct Connect offer for ap-northeast-1 and ap-northeast-3, published 2026-10-05). Japanese consumption tax is extra. Monthly figures use 730 hours.
+The Direct Connect price tables (port-hours for dedicated and hosted connections, the full DTO matrix, SiteLink, flat-rate tiers and AWS's worked examples) live in one place: [direct-connect/10-pricing.md](direct-connect/10-pricing.md). The site reads the same numbers from one file, `src/data/dxPricing.ts`. What matters for a Tokyo or Osaka design:
 
-### Dedicated port-hours
-
-| Speed | Japan locations ($/h) | Japan ≈ $/month | Most other locations ($/h) |
-| --- | --- | --- | --- |
-| 1 Gbps | 0.285 | 208.05 | 0.30 |
-| 10 Gbps | 2.142 | 1,563.66 | 2.25 |
-| 100 Gbps | 22.50 | 16,425.00 | 22.50 |
-| 400 Gbps | Not offered in Japan | – | 85.00 |
-
-Japan locations in the price list: Equinix TY2 (Tokyo), AT Tokyo Chuo, NEC Inzai, Equinix OS1 (Osaka), all billed under Asia Pacific (Tokyo), and KDDI Telehouse Osaka 2, billed under Asia Pacific (Osaka). Pay-as-you-go 100 Gbps SKUs appear at AT Tokyo, NEC Inzai and Telehouse Osaka 2 in the price list; check the locations page for the speeds a specific site offers today.
-
-### Hosted connection port-hours (Japan)
-
-| Capacity | $/h | ≈ $/month |
-| --- | --- | --- |
-| 50 Mbps | 0.029 | 21.17 |
-| 100 Mbps | 0.057 | 41.61 |
-| 200 Mbps | 0.076 | 55.48 |
-| 300 Mbps | 0.114 | 83.22 |
-| 400 Mbps | 0.152 | 110.96 |
-| 500 Mbps | 0.190 | 138.70 |
-| 1 Gbps | 0.314 | 229.22 |
-| 2 Gbps | 0.627 | 457.71 |
-| 5 Gbps | 1.568 | 1,144.64 |
-| 10 Gbps | 2.361 | 1,723.53 |
-| 25 Gbps | 6.20 | 4,526.00 |
-
-The partner's own fees come on top. A hosted 10 Gbps costs more per hour than a dedicated 10 Gbps port.
-
-### Data transfer out (DTO)
-
-Data transfer in over DX is free. DTO depends on the source Region and the geography of the DX location where traffic exits.
-
-| From | To a Japan DX location | To Singapore / Hong Kong / KL | To a US location | To a Europe location |
-| --- | --- | --- | --- | --- |
-| Tokyo (ap-northeast-1) | $0.041/GB | $0.041/GB | $0.09/GB | $0.06/GB |
-| Osaka (ap-northeast-3) | $0.041/GB | $0.041/GB | $0.09/GB | $0.06/GB |
-
-For comparison, US Regions to a US location cost $0.02/GB. If a Transit Gateway is in the path, add the TGW attachment-hour and $0.02/GB data processing (see [05-hubs.md](05-hubs.md)).
-
-### Flat-rate (2026-09-15)
-
-Dedicated 10G and 100G connections can instead use a flat hourly rate that includes DTO from Regions in a chosen tier (Tier 1 same metro up to Tier 5 global). At Japan locations the price list shows, for a single 10G port, $10.96/h (Tier 1), $17.12/h (Tier 2) and $23.29/h (Tier 3), and for 100G $102.74, $160.96 and $219.18. Port-pair SKUs are listed at half those rates per port (for example 10G Tier 1 pair $5.48/h per port), which matches AWS's statement that a pair costs the same as a single flat-rate port. Depth: [cross-connect 10-pricing](https://github.com/0-draft/cross-connect/blob/main/docs/10-pricing.md).
+- Pay-as-you-go is port-hours plus data transfer out. A dedicated 1 Gbps port at a Japan location is $0.285/h and 10 Gbps is $2.142/h, slightly below most other locations. 400 Gbps is not offered in Japan.
+- Data in over DX is free. Out of Tokyo or Osaka to a Japan DX location is $0.041/GB, against $0.114/GB for the first internet tier.
+- A hosted 10 Gbps costs more per hour than a dedicated 10 Gbps port, and the partner's own fees come on top.
+- Flat-rate (2026-09-15) covers dedicated 10G and 100G only. A port-pair costs the same as a single flat-rate port. If a Transit Gateway is in the path, its attachment-hours and $0.02/GB processing are extra either way (see [05-hubs.md](05-hubs.md)).
 
 ## Japanese carrier closed-network services that embed DX
 
@@ -231,7 +192,7 @@ AWS does not publish an end-to-end lead time for a dedicated connection. The car
 
 ## Sources
 
-- <https://github.com/0-draft/cross-connect/tree/main/docs>
+- [direct-connect/](direct-connect/README.md) (the deep dive's research notes)
 - <https://docs.aws.amazon.com/directconnect/latest/UserGuide/limits.html>
 - <https://docs.aws.amazon.com/directconnect/latest/UserGuide/routing-and-bgp.html>
 - <https://docs.aws.amazon.com/directconnect/latest/UserGuide/hosted-vif.html>
