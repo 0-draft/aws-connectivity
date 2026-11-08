@@ -1,10 +1,12 @@
-# on-ramp
+# aws-connectivity
 
-[![ci](https://github.com/0-draft/on-ramp/actions/workflows/ci.yml/badge.svg)](https://github.com/0-draft/on-ramp/actions/workflows/ci.yml)
+[![ci](https://github.com/0-draft/aws-connectivity/actions/workflows/ci.yml/badge.svg)](https://github.com/0-draft/aws-connectivity/actions/workflows/ci.yml)
 
 Every way from a corporate network into AWS, drawn as a road map. A bilingual (English / 日本語) interactive explainer that puts the internet, Site-to-Site VPN, Direct Connect, SD-WAN, the AWS-side hubs (virtual private gateway, Direct Connect gateway, Transit Gateway, Cloud WAN), PrivateLink, hybrid DNS, user access and Outposts on one map, then lets you drive each road: predict what AWS will do, then step through why.
 
-**Site:** <https://0-draft.github.io/on-ramp/> ([日本語](https://0-draft.github.io/on-ramp/?lang=ja))
+**Site:** <https://0-draft.github.io/aws-connectivity/> ([日本語](https://0-draft.github.io/aws-connectivity/?lang=ja))
+
+Formerly `0-draft/on-ramp` (renamed 2026-11-08; the old site URL no longer serves).
 
 [日本語の README](README.ja.md)
 
@@ -17,7 +19,7 @@ Every way from a corporate network into AWS, drawn as a road map. A bilingual (E
 | 2 | Rules of the road | CIDR slider, longest-prefix gantry signs, BGP, the three layers, where each kind of encryption applies |
 | 3 | Internet | Hop-by-hop walk to a public endpoint; S3 bucket-policy lab (`aws:SourceIp` vs `aws:SourceVpce`) |
 | 4 | VPN | Tunnel failover stepper; throughput lab for VGW, Transit Gateway and Cloud WAN (ECMP, large tunnels) |
-| 5 | Direct Connect | Who owns which stretch, VIF types, 閉域 ≠ 暗号化 — then deep links into the [Direct Connect deep dive](https://0-draft.github.io/on-ramp/direct-connect/) |
+| 5 | Direct Connect | Who owns which stretch, VIF types, 閉域 ≠ 暗号化 — then deep links into the [Direct Connect deep dive](https://0-draft.github.io/aws-connectivity/direct-connect/) |
 | 6 | Hubs | Scale lab (VPCs × Regions × sites across four designs, with quotas); appliance-mode stepper |
 | 7 | SD-WAN | Encapsulation cutaway (GRE inside an attachment); Connect capacity lab |
 | 8 | Path selection | Same routes, three hubs, three answers: VGW vs Transit Gateway vs Cloud WAN decision ladder |
@@ -34,7 +36,7 @@ The research behind every number lives in [`docs/`](docs/README.md), with source
 
 ## Direct Connect deep dive
 
-The map is every road; the second page, **[Direct Connect, up close](https://0-draft.github.io/on-ramp/direct-connect/)** ([日本語](https://0-draft.github.io/on-ramp/direct-connect/?lang=ja)), drives one of them part by part. The Direct Connect exit on the map summarizes and links there instead of repeating it. It was the separate [0-draft/cross-connect](https://github.com/0-draft/cross-connect) site until 2026-11-08; its research notes are in [`docs/direct-connect/`](docs/direct-connect/README.md), and its Direct Connect price list is now the only one on the site (`src/data/dxPricing.ts`, documented in [`docs/direct-connect/10-pricing.md`](docs/direct-connect/10-pricing.md)).
+The map is every road; the second page, **[Direct Connect, up close](https://0-draft.github.io/aws-connectivity/direct-connect/)** ([日本語](https://0-draft.github.io/aws-connectivity/direct-connect/?lang=ja)), drives one of them part by part. The Direct Connect exit on the map summarizes and links there instead of repeating it. It was the separate [0-draft/cross-connect](https://github.com/0-draft/cross-connect) site until 2026-11-08; its research notes are in [`docs/direct-connect/`](docs/direct-connect/README.md), and its Direct Connect price list is now the only one on the site (`src/data/dxPricing.ts`, documented in [`docs/direct-connect/10-pricing.md`](docs/direct-connect/10-pricing.md)).
 
 | Section | Interactive part |
 | --- | --- |
@@ -62,7 +64,7 @@ Requires Node.js 24.
 
 ```bash
 npm ci
-npm run dev        # http://localhost:5173/on-ramp/ (deep dive: /on-ramp/direct-connect/)
+npm run dev        # http://localhost:5173/aws-connectivity/ (deep dive: /aws-connectivity/direct-connect/)
 npm run check      # typecheck, lint, format, markdownlint, tests, build
 npm run test:e2e   # real-browser checks (needs: npx playwright install chromium)
 ```

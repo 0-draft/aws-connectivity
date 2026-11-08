@@ -6,7 +6,7 @@ import { NAV } from "@/data/nav";
 export type NavItem = { id: string; label: L };
 
 type Theme = "system" | "light" | "dark";
-const THEME_KEY = "on-ramp:theme";
+const THEME_KEY = "aws-connectivity:theme";
 
 function readTheme(): Theme {
   try {
@@ -193,7 +193,7 @@ export function Header({
         <a
           href={back ? back.href : "#top"}
           className="flex min-h-10 shrink-0 items-center gap-1.5 font-black tracking-tight"
-          aria-label={back ? `On-ramp: ${t(back.label)}` : "On-ramp"}
+          aria-label={back ? `AWS Connectivity: ${t(back.label)}` : "AWS Connectivity"}
           title={back ? t(back.label) : undefined}
         >
           <svg viewBox="0 0 64 64" className="h-6 w-6" aria-hidden="true">
@@ -213,7 +213,7 @@ export function Header({
               strokeLinejoin="round"
             />
           </svg>
-          <span className="hidden sm:inline">On-ramp</span>
+          <span className="hidden sm:inline">AWS Connectivity</span>
         </a>
 
         {/* Wide screens: every exit, current one centred, edges faded. */}

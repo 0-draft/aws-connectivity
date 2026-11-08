@@ -12,7 +12,7 @@ function Probe({ onValue }: { onValue: (v: LangValue) => void }) {
 
 describe("LangProvider", () => {
   it("rewrites ?lang= and keeps other params and the hash", () => {
-    window.history.replaceState(null, "", "/on-ramp/?x=1#routing");
+    window.history.replaceState(null, "", "/aws-connectivity/?x=1#routing");
     const out: { v?: LangValue } = {};
     render(
       <LangProvider>
@@ -21,7 +21,7 @@ describe("LangProvider", () => {
     );
     expect(out.v?.lang).toBe("en");
     act(() => out.v?.setLang("ja"));
-    expect(window.location.pathname).toBe("/on-ramp/");
+    expect(window.location.pathname).toBe("/aws-connectivity/");
     expect(window.location.search).toBe("?x=1&lang=ja");
     expect(window.location.hash).toBe("#routing");
     expect(document.title).toMatch(/社内/);

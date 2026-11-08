@@ -4,9 +4,9 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
 
-// Served from https://0-draft.github.io/on-ramp/ on GitHub Pages.
+// Served from https://0-draft.github.io/aws-connectivity/ on GitHub Pages.
 export default defineConfig({
-  base: process.env.BASE_PATH ?? "/on-ramp/",
+  base: process.env.BASE_PATH ?? "/aws-connectivity/",
   plugins: [react(), tailwindcss()],
   build: {
     rolldownOptions: {

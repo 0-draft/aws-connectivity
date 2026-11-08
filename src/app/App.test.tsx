@@ -11,7 +11,9 @@ describe("App", () => {
           <App />
         </LangProvider>,
       );
-      expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("On-ramp");
+      expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+        "AWS Connectivity",
+      );
       // The tail exits load lazily; wait until none is a placeholder.
       await waitFor(
         () => expect(container.querySelector("[aria-busy=true]")).toBeNull(),

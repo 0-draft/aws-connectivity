@@ -5,7 +5,7 @@ export type Lang = (typeof LANGS)[number];
 export type L = Record<Lang, string>;
 
 export const DEFAULT_LANG: Lang = "en";
-const STORAGE_KEY = "on-ramp:lang";
+const STORAGE_KEY = "aws-connectivity:lang";
 
 export function isLang(v: unknown): v is Lang {
   return typeof v === "string" && (LANGS as readonly string[]).includes(v);

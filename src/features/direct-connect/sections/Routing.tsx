@@ -11,7 +11,7 @@ import {
   selectPath,
 } from "../lib/routing";
 import { Beacon, PlainWords } from "../components/Beacon";
-import { OnRampLink } from "../components/HomeLink";
+import { HomeLink } from "../components/HomeLink";
 
 const C = {
   kicker: { en: "BGP & routing", ja: "BGP とルーティング" },
@@ -667,9 +667,9 @@ export function Routing() {
           <T c={C.med} />
           <span className="mt-2 block">
             <T c={C.hubChoice} />
-            <OnRampLink section="routing">
+            <HomeLink section="routing">
               <T c={C.hubChoiceLink} />
-            </OnRampLink>
+            </HomeLink>
           </span>
         </Callout>
       </div>

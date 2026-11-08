@@ -81,12 +81,12 @@ export function Footer({
           </li>
         </ul>
         <p className="mt-2 flex flex-wrap gap-4 text-xs">
-          <a className="underline" href="https://github.com/0-draft/on-ramp">
-            github.com/0-draft/on-ramp
+          <a className="underline" href="https://github.com/0-draft/aws-connectivity">
+            github.com/0-draft/aws-connectivity
           </a>
           <a
             className="underline"
-            href="https://github.com/0-draft/on-ramp/tree/main/docs"
+            href="https://github.com/0-draft/aws-connectivity/tree/main/docs"
           >
             {t(C.notes)}
           </a>
