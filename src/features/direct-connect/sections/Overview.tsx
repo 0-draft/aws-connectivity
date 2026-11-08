@@ -192,7 +192,8 @@ function Hotspot({
     <g
       role="button"
       tabIndex={0}
-      aria-label={t(PARTS[id].name)}
+      // Named by its drawn labels (WCAG 2.5.3); the full name is the description.
+      aria-description={t(PARTS[id].name)}
       aria-pressed={active === id}
       onClick={() => onPick(id)}
       onKeyDown={(e) => {

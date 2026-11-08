@@ -283,6 +283,7 @@ export function Patterns() {
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--line)] py-2.5">
             <span className="text-sm">{t(Q.gbps)}</span>
             <select
+              aria-label={t(Q.gbps)}
               value={a.gbps}
               onChange={(e) => set("gbps", Number(e.target.value))}
               className="rounded-full border border-[var(--line)] bg-[var(--panel-2)] px-2 py-1 font-mono text-sm"

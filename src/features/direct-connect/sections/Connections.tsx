@@ -284,8 +284,8 @@ function Ordering() {
                 i === n
                   ? "border-[var(--fiber)] bg-[var(--panel-2)]"
                   : n < i
-                    ? "border-[var(--line)] opacity-70"
-                    : "border-[var(--line)] opacity-50 hover:opacity-80"
+                    ? "border-[var(--line)] text-[var(--muted)]"
+                    : "border-[var(--line)] text-[var(--muted)] hover:border-[var(--ink)]"
               }`}
             >
               <span className="block font-mono text-[0.65rem] text-[var(--fiber)]">

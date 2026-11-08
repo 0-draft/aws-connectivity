@@ -75,7 +75,7 @@ export function Section({
     <section id={id} aria-labelledby={`${id}-title`} className="pt-12 pb-4 sm:pt-16">
       <p className="mb-2 text-sm font-bold text-[var(--muted)]">{t(kicker)}</p>
       <div className="sign inline-flex max-w-full items-stretch overflow-hidden">
-        <span className="m-[5px] mr-0 flex shrink-0 items-center whitespace-nowrap bg-[var(--sign-ink)] px-3 py-2 text-sm font-black text-[var(--r-dx)] [border-radius:7px_0_0_7px] sm:px-4 sm:text-base">
+        <span className="m-[5px] mr-0 flex shrink-0 items-center whitespace-nowrap bg-[var(--sign-ink)] px-3 py-2 text-sm font-black text-[var(--sign)] [border-radius:7px_0_0_7px] sm:px-4 sm:text-base">
           <span className="sr-only">{t({ en: "Stop", ja: "ステップ" })} </span>
           <span aria-hidden="true">DX&nbsp;</span>
           {no}
@@ -183,7 +183,18 @@ export function Scroll({ children }: { children: ReactNode }) {
 
   return (
     <div>
-      <div ref={ref} className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+      {/* When it scrolls, keyboard users need to reach it too. */}
+      <div
+        ref={ref}
+        className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+        tabIndex={overflows ? 0 : undefined}
+        role={overflows ? "region" : undefined}
+        aria-label={
+          overflows
+            ? t({ en: "Scrollable diagram", ja: "横にスクロールできる図" })
+            : undefined
+        }
+      >
         {children}
       </div>
       {overflows && (

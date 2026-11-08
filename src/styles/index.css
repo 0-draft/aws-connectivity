@@ -251,13 +251,13 @@ input[type="range"] {
   --panel: var(--paper);
   --panel-2: var(--paper-2);
   --fiber: var(--r-dx);
-  --fiber-soft: color-mix(in srgb, var(--r-dx) 14%, var(--paper));
+  --fiber-soft: color-mix(in srgb, var(--r-dx) 8%, var(--paper));
   --aws: var(--r-private);
-  --aws-soft: color-mix(in srgb, var(--r-private) 14%, var(--paper));
+  --aws-soft: color-mix(in srgb, var(--r-private) 8%, var(--paper));
   --violet: var(--r-sdwan);
-  --violet-soft: color-mix(in srgb, var(--r-sdwan) 14%, var(--paper));
-  --ok-soft: color-mix(in srgb, var(--ok) 14%, var(--paper));
-  --bad-soft: color-mix(in srgb, var(--bad) 14%, var(--paper));
+  --violet-soft: color-mix(in srgb, var(--r-sdwan) 8%, var(--paper));
+  --ok-soft: color-mix(in srgb, var(--ok) 8%, var(--paper));
+  --bad-soft: color-mix(in srgb, var(--bad) 8%, var(--paper));
   --sun: var(--lane);
   --on-accent: var(--on-color);
   --dot: var(--grid);

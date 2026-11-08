@@ -350,7 +350,7 @@ function LayerDiagram() {
                   role="button"
                   tabIndex={0}
                   aria-pressed={on}
-                  aria-label={l.label}
+                  // Named by its drawn labels (WCAG 2.5.3, label in name).
                   className="cursor-pointer"
                   onClick={() => setFocus(k)}
                   onKeyDown={(e) => {

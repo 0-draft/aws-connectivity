@@ -29,39 +29,24 @@ export function Beacon({
   title?: string;
 }) {
   const m = MOOD[mood];
+  // Plain HTML rather than SVG: it is an icon, not a diagram.
   return (
-    <svg
-      viewBox="0 0 64 64"
-      width={size}
-      height={size}
-      className={className}
+    <span
+      className={`inline-flex shrink-0 items-center justify-center rounded-[22%] border-2 border-[var(--paper)] leading-none font-black ${className}`}
+      style={{
+        width: size,
+        height: size,
+        fontSize: size * 0.5,
+        background: m.color,
+        outline: `2px solid ${m.color}`,
+        color: mood === "thinking" ? "var(--on-hub)" : "var(--on-color)",
+      }}
       role={title ? "img" : undefined}
       aria-hidden={title ? undefined : true}
       aria-label={title}
     >
-      <rect x="6" y="6" width="52" height="52" rx="10" fill={m.color} />
-      <rect
-        x="10"
-        y="10"
-        width="44"
-        height="44"
-        rx="7"
-        fill="none"
-        stroke="var(--paper)"
-        strokeWidth="2.5"
-      />
-      <text
-        x="32"
-        y="33"
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontSize="30"
-        fontWeight="900"
-        fill={mood === "thinking" ? "var(--on-hub)" : "var(--on-color)"}
-      >
-        {m.glyph}
-      </text>
-    </svg>
+      {m.glyph}
+    </span>
   );
 }
 

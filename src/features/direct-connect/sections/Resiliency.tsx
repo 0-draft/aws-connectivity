@@ -206,10 +206,13 @@ function FailureLab() {
                       role="button"
                       tabIndex={0}
                       aria-pressed={cut}
-                      aria-label={t({
-                        en: `Cut connection ${c.id.split("-")[1]} at location ${li + 1}`,
-                        ja: `ロケーション ${li + 1} の接続 ${c.id.split("-")[1]} を切断`,
-                      })}
+                      // Starts with the drawn label (WCAG 2.5.3, label in name).
+                      aria-label={`${narrow ? "AWS" : t({ en: "AWS device", ja: "AWS 機器" })} ${c.id.split("-")[1]}: ${t(
+                        {
+                          en: `cut this connection at location ${li + 1}`,
+                          ja: `ロケーション ${li + 1} のこの接続を切断`,
+                        },
+                      )}`}
                       className="cursor-pointer"
                       onClick={() => setCutConns((l) => flip(l, c.id))}
                       onKeyDown={(e) => {
