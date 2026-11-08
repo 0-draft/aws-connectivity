@@ -491,7 +491,7 @@ export function Security() {
           <T
             c={{
               en: "“It's a closed network, so it's safe” is the most common assumption — and closed is not encrypted. Your frames cross the cross connect, maybe a carrier network, and the AWS device in plain text unless you add a layer that encrypts.",
-              ja: "「閉域網だから安全」はいちばん多い思い込み。閉域 ≠ 暗号化。暗号化レイヤーを足さない限り、フレームはクロスコネクトも、キャリア網も、AWS の機器も平文のまま通るよ。",
+              ja: "「閉域網だから安全」はいちばん多い思い込みです。閉域 ≠ 暗号化。暗号化レイヤーを足さない限り、フレームはクロスコネクトも、キャリア網も、AWS の機器も平文のまま通ります。",
             }}
           />
         </PlainWords>

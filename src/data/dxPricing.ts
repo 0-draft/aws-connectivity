@@ -4,8 +4,19 @@ import { DX_AS_OF } from "./asOf";
  * The one Direct Connect price list on the site. Both the road map's cost lab
  * (@/features/cost/cost) and the deep dive's pricing section read DX prices
  * from here, and docs/direct-connect/10-pricing.md is the matching research
- * note. USD list prices from aws.amazon.com/directconnect/pricing and the AWS
- * Price List API. Monthly figures use 730 hours, as AWS's own examples do.
+ * note. Monthly figures use 730 hours, as AWS's own examples do.
+ *
+ * Sources, all read on DX_AS_OF (2026-10-12):
+ * - Pay-as-you-go port-hours, the DTO matrix and SiteLink:
+ *   https://aws.amazon.com/directconnect/pricing/
+ * - The Japan columns, cross-checked against the AWS Price List API
+ *   (Direct Connect offer for ap-northeast-1 / ap-northeast-3).
+ * - Flat-rate tiers and AWS's worked example:
+ *   https://aws.amazon.com/directconnect/pricing/flat-rate/ and
+ *   https://docs.aws.amazon.com/directconnect/latest/PricingGuide/pricing-flat-rate.html
+ *
+ * The road map's own AS_OF (2026-10-10) is older: its non-DX prices were read
+ * then. The Japan DX values here were unchanged between the two reads.
  */
 
 export const HOURS_PER_MONTH = 730;
@@ -62,7 +73,9 @@ export const DTO_PER_GB: Record<SourceRegion, Record<DxGeo, number>> = {
 };
 
 /**
- * Flat-rate (2026-09-15), dedicated 10G and 100G only, USD per hour for a
+ * Flat-rate (launched 2026-09-15, per
+ * https://aws.amazon.com/about-aws/whats-new/2026/09/aws-direct-connect-announces-flat-rate-pricing/),
+ * dedicated 10G and 100G only, USD per hour for a
  * single port or a whole port-pair (a pair costs the same as one port).
  * Tiers 1-3 as listed for the Japan locations; AWS's own Ashburn example
  * (10G Tier 1 port-pair at Equinix DC2) is the same $10.96/hour.

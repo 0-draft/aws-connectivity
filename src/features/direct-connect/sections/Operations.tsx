@@ -354,7 +354,7 @@ export function Operations() {
           <T
             c={{
               en: "Until March 2026 there was no CloudWatch metric for BGP state at all, so a session could quietly go Idle — for example after someone advertised a 101st prefix. Now you can alarm on it. Do.",
-              ja: "2026 年 3 月までは BGP の状態を示す CloudWatch メトリクスがなかったので、たとえば 101 本目の経路を広告しただけでセッションが静かに Idle になっても気づけなかった。今はアラームを設定できるから、ぜひ設定してね。",
+              ja: "2026 年 3 月までは BGP の状態を示す CloudWatch メトリクスがなかったため、たとえば 101 本目の経路を広告しただけでセッションが静かに Idle になっても気づけませんでした。今はアラームを設定できるので、必ず設定しておきましょう。",
             }}
           />
         </PlainWords>

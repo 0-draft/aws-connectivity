@@ -682,7 +682,7 @@ export function Gateway() {
           <T
             c={{
               en: "A DX gateway is directory assistance, not a road. It tells each side which numbers the other side has, but your traffic never flows through it, and by design it won't link two parties on the same side — no VPC-to-VPC, no VIF-to-VIF. And “allowed prefixes” changes job depending on who is behind it: a checkpoint for a VGW, a signboard for a Transit Gateway.",
-              ja: "DX ゲートウェイは道路じゃなくて番号案内 (104) みたいなもの。両側に「相手側にはどんな番号 (経路) があるか」を教えるけど、通信そのものは通らないし、同じ側どうしをつなぐこともしない (VPC 間も VIF 間もダメ)。そして「許可されたプレフィックス」は相手によって役割が変わる。VGW なら検問所、Transit Gateway なら看板。",
+              ja: "DX ゲートウェイは道路ではなく番号案内 (104) のようなものです。両側に「相手側にはどんな番号 (経路) があるか」を教えますが、通信そのものは通らず、同じ側どうしをつなぐこともしません (VPC 間も VIF 間も不可)。そして「許可されたプレフィックス」は相手によって役割が変わります。VGW なら検問所、Transit Gateway なら看板です。",
             }}
           />
         </PlainWords>

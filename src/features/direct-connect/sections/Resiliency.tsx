@@ -397,7 +397,7 @@ export function Resiliency() {
           <T
             c={{
               en: "On 2021-09-02, devices inside AWS's network between the Direct Connect locations and the Tokyo Region misforwarded traffic for about six hours. Every location into Tokyo was hit, so spreading connections over buildings didn't help, while Site-to-Site VPN and DX to other Regions kept working. Lesson: keep a backup of a different kind, and watch for loss, not just link state.",
-              ja: "2021-09-02 の東京リージョンの Direct Connect 障害では、DX ロケーションと東京リージョンの間にある AWS 内部の機器が約 6 時間、正しく転送できなくなったの。東京に向かう通信はどのロケーションでも影響を受けたから、建物を分けるだけでは防げなかった。一方で Site-to-Site VPN や他リージョンへの DX は無事だったよ。教訓は、種類の違う予備経路を持つことと、リンクの状態だけじゃなくパケットロスも見張ること。",
+              ja: "2021-09-02 の東京リージョンの Direct Connect 障害では、DX ロケーションと東京リージョンの間にある AWS 内部の機器が約 6 時間、正しく転送できなくなりました。東京に向かう通信はどのロケーションでも影響を受けたため、建物を分けるだけでは防げませんでした。一方で Site-to-Site VPN や他リージョンへの DX は影響を受けていません。教訓は、種類の違う予備経路を持つことと、リンクの状態だけでなくパケットロスも監視することです。",
             }}
           />
         </PlainWords>

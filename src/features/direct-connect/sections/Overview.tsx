@@ -755,7 +755,7 @@ export function Overview() {
           <T
             c={{
               en: "Think of a DX location as an airport. AWS runs the boarding gate (its router) and the flights (the backbone). Getting to the airport is up to you: your carrier circuit is the airport bus. People often assume AWS provides the whole line — it only starts at the gate.",
-              ja: "DX ロケーションは空港みたいなもの。AWS が担当するのは搭乗口 (AWS ルーター) と飛行機 (バックボーン) だけ。空港まではリムジンバス (キャリア回線) で自分で来てね。「AWS が回線を全部用意してくれる」と思われがちだけど、そこは自分の担当だよ。",
+              ja: "DX ロケーションは空港のようなものです。AWS が担当するのは搭乗口 (AWS ルーター) と飛行機 (バックボーン) だけで、空港まではリムジンバス (キャリア回線) で自分で来る必要があります。「AWS が回線を全部用意してくれる」と思われがちですが、そこは自分の担当です。",
             }}
           />
         </PlainWords>

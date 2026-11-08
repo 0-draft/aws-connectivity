@@ -32,12 +32,12 @@ const C = {
   flatTitle: { en: "Hosted connection or hosted VIF?", ja: "ホスト接続? ホスト VIF?" },
   flat: {
     en: "Think of flats. A hosted connection is renting a whole flat: the space (bandwidth) is yours, guaranteed. A hosted VIF is renting a room in someone else's flat: you share the kitchen with whoever else lives there.",
-    ja: "部屋探しにたとえると、ホスト接続は「部屋を丸ごと借りる」。広さ (帯域) は自分専用で保証される。ホスト VIF は「他人の家の一部屋を借りる」。キッチン (帯域) は同居人とシェアだよ。",
+    ja: "部屋探しにたとえると、ホスト接続は「部屋を丸ごと借りる」ことで、広さ (帯域) は自分専用で保証されます。ホスト VIF は「他人の家の一部屋を借りる」ことで、キッチン (帯域) は同居人と共有です。",
   },
   carrierTitle: { en: "Buying through a carrier?", ja: "キャリア経由で使うなら" },
   carrier: {
     en: "Many “closed network to AWS” services from carriers have Direct Connect inside. The carrier owns everything up to the AWS port (often a hosted connection), so a failure can be theirs or AWS's. Ask them which pieces they run, and what bandwidth you really get.",
-    ja: "キャリアの「AWS 閉域接続」サービスの多くは、中身が Direct Connect。AWS ポートまではキャリアの担当 (ホスト接続のことが多い) だから、障害がキャリア側か AWS 側かは切り分けが必要。どこまでがキャリアの担当か、実際にどれだけの帯域が使えるのかを確認しよう。",
+    ja: "キャリアの「AWS 閉域接続」サービスの多くは、中身が Direct Connect です。AWS ポートまではキャリアの担当 (ホスト接続のことが多い) なので、障害がキャリア側か AWS 側かの切り分けが必要です。どこまでがキャリアの担当か、実際にどれだけの帯域が使えるのかを確認してください。",
   },
   jpTitle: { en: "If you are in Japan", ja: "日本で使うなら" },
   jp: {
@@ -371,7 +371,7 @@ export function Connections() {
           <T
             c={{
               en: "The LOA-CFA is not a setting you type anywhere. It is a signed work permit: “you may plug a fiber into AWS port X on patch panel Y.” You hand it to the building's staff (or your carrier), and they install the cross connect — not AWS.",
-              ja: "LOA-CFA はどこかに入力する設定値じゃないよ。「パッチパネル Y の AWS ポート X にファイバーを挿してよし」という署名入りの工事許可証。これを施設 (またはキャリア) に渡すと、AWS ではなく施設の人がクロスコネクトを敷設してくれる。",
+              ja: "LOA-CFA はどこかに入力する設定値ではありません。「パッチパネル Y の AWS ポート X にファイバーを挿してよい」という署名入りの工事許可証です。これを施設 (またはキャリア) に渡すと、AWS ではなく施設の担当者がクロスコネクトを敷設します。",
             }}
           />
         </PlainWords>

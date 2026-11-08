@@ -266,7 +266,7 @@ export function Pricing() {
           <T
             c={{
               en: "Three different bills: AWS charges the connection owner for port-hours and the sending account for data out; the colocation facility bills the cross connect; your carrier or partner bills the circuit. Data coming into AWS is always free.",
-              ja: "請求書は 3 種類。AWS は接続のオーナーにポート時間を、送信元アカウントにデータ転送料を請求。クロスコネクト代はデータセンター事業者から、回線代はキャリアやパートナーから。AWS に入ってくるデータはいつでも無料。",
+              ja: "請求書は 3 種類です。AWS は接続のオーナーにポート時間を、送信元アカウントにデータ転送料を請求します。クロスコネクト代はデータセンター事業者から、回線代はキャリアやパートナーから請求されます。AWS に入ってくるデータは常に無料です。",
             }}
           />
         </PlainWords>

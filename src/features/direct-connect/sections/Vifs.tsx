@@ -447,8 +447,8 @@ export function Vifs() {
         <PlainWords mood="happy">
           <T
             c={{
-              en: "A connection is a road; VIFs are lanes painted on it. Each lane has its own number (a VLAN ID), its own conversation with AWS (a BGP session), and goes to one kind of place. Adding a lane costs nothing, but a road only has room for 51.",
-              ja: "接続は道路、VIF はその上に引いた車線。車線ごとに番号 (VLAN ID) があって、AWS との会話 (BGP セッション) も別々、行き先の種類も 1 つずつ。車線を増やすのは無料だけど、1 本の道路に引けるのは 51 本まで。",
+              en: "A connection is a road; VIFs are lanes painted on it. Each lane has its own number (a VLAN ID), its own conversation with AWS (a BGP session), and goes to one kind of place. A VIF has no AWS charge of its own (SiteLink, if you turn it on, does), but a road only has room for 51.",
+              ja: "接続は道路、VIF はその上に引いた車線。車線ごとに番号 (VLAN ID) があり、AWS との会話 (BGP セッション) も別々で、行き先の種類も 1 つずつです。VIF 自体に AWS の料金はかかりません (SiteLink を有効にした場合は別) が、1 本の道路に引けるのは 51 本までです。",
             }}
           />
         </PlainWords>

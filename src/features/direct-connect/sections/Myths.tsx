@@ -17,7 +17,7 @@ const C = {
   wrong: { en: "Not quite.", ja: "ざんねん。" },
   intro: {
     en: `${MYTHS.length} questions — pick Fact or Myth`,
-    ja: `全 ${MYTHS.length} 問。「ほんと」か「うそ」を選んでね`,
+    ja: `全 ${MYTHS.length} 問。「ほんと」か「うそ」を選んでください`,
   },
   reset: { en: "Try again", ja: "もう一度" },
 };

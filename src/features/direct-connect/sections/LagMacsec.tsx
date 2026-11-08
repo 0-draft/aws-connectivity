@@ -566,7 +566,7 @@ export function LagMacsec() {
           <T
             c={{
               en: "A LAG is four lanes merged into one wide road — but it is still one bridge. If the bridge (the AWS device, or the building) goes, every lane goes with it. The Direct Connect FAQ says it outright: a LAG does not make your connectivity more resilient.",
-              ja: "LAG は 4 車線を束ねた広い道路。でも橋は 1 本のまま。橋 (AWS 機器や建物) が落ちたら全車線いっしょに止まる。Direct Connect の FAQ にもはっきり「LAG で冗長性は上がらない」と書いてあるよ。",
+              ja: "LAG は 4 車線を束ねた広い道路ですが、橋は 1 本のままです。橋 (AWS 機器や建物) が落ちれば全車線が同時に止まります。Direct Connect の FAQ にも「LAG で冗長性は上がらない」と明記されています。",
             }}
           />
         </PlainWords>

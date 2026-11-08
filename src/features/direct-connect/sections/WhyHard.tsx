@@ -47,7 +47,7 @@ const C = {
   },
   notThat: {
     en: "One more thing: in Japan “DX” usually means digital transformation. Here it means Direct Connect — the fiber, not the buzzword.",
-    ja: "最初にひとつだけ。ここでの「DX」はデジタルトランスフォーメーションではなく Direct Connect のこと。バズワードじゃなくて、ファイバーの話だよ。",
+    ja: "最初にひとつだけ。ここでの「DX」はデジタルトランスフォーメーションではなく Direct Connect のことです。バズワードではなく、ファイバーの話です。",
   },
 };
 
