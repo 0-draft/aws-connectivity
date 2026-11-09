@@ -91,6 +91,7 @@ The 400G sites listed on the locations page are all in the United States: CoreSi
 | 2026-03 | Equinix SY5, Sydney (tenth in Australia) | 10G, 100G with MACsec |
 | 2026-04 | Datacom Orbit DH6, Auckland (100G expansion) | 100G with MACsec |
 | 2026-07 | Cirion, Lima, Peru (100G expansion, first 100G/MACsec in Peru) | 100G with MACsec |
+| 2026-10 | Equinix MA3, Manchester (100G expansion, third 100G location in England); Netmagic DC2, Bangalore (100G expansion) | Manchester 10G, 100G with MACsec; Bangalore 100G (the locations page marks MACsec) |
 
 ## Connectivity options to reach a location
 

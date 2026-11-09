@@ -6,7 +6,7 @@ import { DX_AS_OF } from "./asOf";
  * from here, and docs/direct-connect/10-pricing.md is the matching research
  * note. Monthly figures use 730 hours, as AWS's own examples do.
  *
- * Sources, all read on DX_AS_OF (2026-10-12):
+ * Sources, all read on DX_AS_OF (2026-11-09):
  * - Pay-as-you-go port-hours, the DTO matrix and SiteLink:
  *   https://aws.amazon.com/directconnect/pricing/
  * - The Japan columns, cross-checked against the AWS Price List API
@@ -15,8 +15,8 @@ import { DX_AS_OF } from "./asOf";
  *   https://aws.amazon.com/directconnect/pricing/flat-rate/ and
  *   https://docs.aws.amazon.com/directconnect/latest/PricingGuide/pricing-flat-rate.html
  *
- * The road map's own AS_OF (2026-10-10) is older: its non-DX prices were read
- * then. The Japan DX values here were unchanged between the two reads.
+ * Both pages were re-checked on 2026-11-09 (Price List API publication
+ * 2026-11-08); no DX or road-map price changed.
  */
 
 export const HOURS_PER_MONTH = 730;

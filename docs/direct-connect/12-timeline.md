@@ -79,7 +79,7 @@ timeline
 
 ## Location footprint
 
-AWS What's New posts give the running count of DX locations: "over 142" (2025-08), "over 146" (2025-09 to 2025-10), "over 149" (2025-12), and "over 150" (2026-03 to 2026-04). Recent additions include Hanoi (the first in Vietnam, 2025-12) and Sydney SY5 (2026-03). 100G expansions include Kansas City (2025-10), Auckland (2026-04), and Lima (2026-07). Two locations are winding down: per the locations page, GDS No. 3 Shenzhen and Equinix MU1 Munich take no new connections after July 1, 2026 and reach end of support in July 2027. The document history gives the same Shenzhen cutoff as "after June 30, 2026".
+AWS What's New posts give the running count of DX locations: "over 142" (2025-08), "over 146" (2025-09 to 2025-10), "over 149" (2025-12), and "over 150" (2026-03 to 2026-04). Recent additions include Hanoi (the first in Vietnam, 2025-12) and Sydney SY5 (2026-03). 100G expansions include Kansas City (2025-10), Auckland (2026-04), Lima (2026-07), Manchester and Bangalore (2026-10). Two locations are winding down: per the locations page, GDS No. 3 Shenzhen and Equinix MU1 Munich take no new connections after July 1, 2026 and reach end of support in July 2027. The document history gives the same Shenzhen cutoff as "after June 30, 2026".
 
 ## Sources
 
@@ -119,5 +119,7 @@ AWS What's New posts give the running count of DX locations: "over 142" (2025-08
 - BGP route visibility (2026-07): <https://aws.amazon.com/about-aws/whats-new/2026/07/aws-direct-connect-bgp-visibility/>
 - Interconnect with Azure preview (2026-08): <https://aws.amazon.com/about-aws/whats-new/2026/08/aws-announces-AWS-interconnect-multicloud-microsoft-azure-preview/>
 - Prefix controls (2026-08-20): <https://aws.amazon.com/about-aws/whats-new/2026/08/aws-direct-connect-new-prefix-controls/>
+- Manchester 100G (2026-10-21): <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-direct-connect-100g-manchester/>
+- Bangalore 100G (2026-10-22): <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-direct-connect-100g-bangalore/>
 - Flat-rate pricing (2026-09-15): <https://aws.amazon.com/about-aws/whats-new/2026/09/aws-direct-connect-announces-flat-rate-pricing/>
 - DX SLA: <https://aws.amazon.com/directconnect/sla/>
