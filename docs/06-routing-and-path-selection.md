@@ -316,3 +316,4 @@ DX_EDGE(dst) for private/transit VIFs:
 - <https://repost.aws/knowledge-center/vpn-bgp-logs-troubleshoot-tunnel>
 - [direct-connect/06-bgp-and-routing.md](direct-connect/06-bgp-and-routing.md)
 - [direct-connect/07-resiliency.md](direct-connect/07-resiliency.md)
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

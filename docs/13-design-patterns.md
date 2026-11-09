@@ -247,3 +247,4 @@ The Hybrid Networking Lens (2026-02-02 revision) applies the six pillars to hybr
 - <https://aws.amazon.com/about-aws/whats-new/2026/06/aws-service-availability/>
 - <https://aws.amazon.com/jp/blogs/news/fin-reference-arch-v1-6/>
 - <https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2026_AWS-DirectConnect-redundant-connection_0525_v1.pdf>
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

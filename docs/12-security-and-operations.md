@@ -250,3 +250,4 @@ The per-GB saving of DX over internet in Tokyo is 0.114 − 0.041 = $0.073/GB in
 - <https://aws.amazon.com/about-aws/whats-new/2026/07/vpc-encryption-controls-declarative-controls/>
 - <https://aws.amazon.com/about-aws/whats-new/2026/9/privatelink-tunnel-endpoint/>
 - AWS Price List API offer files for ap-northeast-1 (AmazonVPC, AmazonEC2, AWSDataTransfer, AWSDirectConnect, AWSCloudWAN, AmazonCloudWatch, AWSDataSync, AWSTransfer), fetched 2026-10-10: <https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/index.json>
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

@@ -315,3 +315,4 @@ Worked example (Tokyo, own arithmetic): one TGW with 10 VPC attachments and one 
 - <https://aws.amazon.com/blogs/networking-and-content-delivery/simplify-global-security-inspection-with-aws-cloud-wan-service-insertion/>
 - <https://aws.amazon.com/blogs/aws/inspect-subnet-to-subnet-traffic-with-amazon-vpc-more-specific-routing/>
 - <https://repost.aws/knowledge-center/vpn-troubleshoot-routing>
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

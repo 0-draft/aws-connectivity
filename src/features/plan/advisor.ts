@@ -331,8 +331,8 @@ export const REC: Record<RecId, { title: L; why: L }> = {
   },
   overlap: {
     title: {
-      en: "Expose services, not networks",
-      ja: "ネットワークでなくサービスを公開",
+      en: "Expose services; translate networks",
+      ja: "サービスは公開、ネットワークは変換",
     },
     why: {
       en: "PrivateLink or VPC Lattice resource configurations for single services; for whole networks, 1:1 NAT on the Transit Gateway or Cloud WAN attachment (2026-10) maps the overlapping side, or each side, to its own NAT CIDR (on TGW: IPv4 only, not with appliance mode); re-IP from an IPAM plan in the long run. No hub routes between identical CIDRs untranslated.",
