@@ -10,8 +10,8 @@ const C = {
     ja: "AWS とは無関係の非公式解説です。料金やクォータは変わるので、設計・購入前に必ず AWS 公式ドキュメントを確認してください。",
   },
   asOf: (d: string) => ({
-    en: `Facts verified against AWS documentation, What's New posts and the AWS Price List API as of ${d}. Prices are USD list prices.`,
-    ja: `記載内容は ${d} 時点の AWS 公式ドキュメント・What's New・Price List API で確認済み。料金は USD の表示価格です。`,
+    en: `Prices, quotas and launches checked against AWS documentation, What's New posts and the AWS Price List API as of ${d}; each research note gives its own verification date. Prices are USD list prices.`,
+    ja: `料金・クォータ・新発表は ${d} 時点の AWS 公式ドキュメント・What's New・Price List API で確認済み (各調査ノートに個別の確認日あり)。料金は USD の表示価格です。`,
   }),
   notes: {
     en: "Research notes (Markdown, with sources)",

@@ -236,8 +236,8 @@ export function HubsSection() {
               ja: "許可されたプレフィックスはそのまま広告されます。DX ゲートウェイの TGW 関連付けでは、オンプレが受け取るのは設定した許可されたプレフィックスそのもの (最大 200) で、VPC の CIDR ではありません。VGW 関連付けでは同じ項目がフィルターとして働くだけです。",
             },
             {
-              en: "Identical CIDRs silently vanish. Attach a second VPC with the same CIDR to one Transit Gateway and its CIDR is simply not propagated: a TGW cannot route between identical CIDRs.",
-              ja: "同じ CIDR は黙って消えます。同じ CIDR の VPC を 2 つ目として同じ Transit Gateway につなぐと、その CIDR は伝播されません。TGW は同一 CIDR 間をルーティングできません。",
+              en: "Identical CIDRs silently vanish. Attach a second VPC with the same CIDR to one Transit Gateway and its CIDR is simply not propagated: a TGW cannot route between identical CIDRs. Since 2026-10, 1:1 NAT on the attachment can map one of them to its own NAT CIDR first.",
+              ja: "同じ CIDR は黙って消えます。同じ CIDR の VPC を 2 つ目として同じ Transit Gateway につなぐと、その CIDR は伝播されません。TGW は同一 CIDR 間をルーティングできません。2026-10 からは、アタッチメントの 1:1 NAT で片方を専用の NAT CIDR に変換してから通せます。",
             },
             {
               en: "Cloud WAN edges bill whether used or not: each core network edge costs $0.50 per hour in every Region you list, before any attachment or traffic.",

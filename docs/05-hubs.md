@@ -262,7 +262,7 @@ Worked example (Tokyo, own arithmetic): one TGW with 10 VPC attachments and one 
 
 - A VPC does not learn on-prem routes from a TGW. You must add static routes (or a prefix list) in each subnet route table.
 - A subnet route to a TGW does nothing for an AZ where the TGW attachment has no subnet.
-- Two VPCs with identical CIDRs on one TGW: the second one silently does not propagate.
+- Two VPCs with identical CIDRs on one TGW: the second one silently does not propagate. Translate one with 1:1 NAT on its attachment (2026-10) or keep them apart.
 - TGW allowed prefixes on the DXGW must not overlap across TGWs on the same DXGW.
 - Forgetting appliance mode on the inspection VPC attachment breaks stateful firewalls only for cross-AZ flows, which makes it look intermittent.
 - A policy table on a VPN or Connect attachment silently stops BGP advertisements to that peer.
