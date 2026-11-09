@@ -1,6 +1,6 @@
 # Where the on-prem path lands: AWS-side hubs
 
-This page covers what an on-prem connection (Direct Connect or Site-to-Site VPN) terminates on inside AWS and how routes get from there into VPCs: the virtual private gateway (VGW), the Direct Connect gateway (DXGW), AWS Transit Gateway (TGW) and AWS Cloud WAN. It explains VPC route tables and route propagation, TGW route tables, associations and propagations, Policy-Based Routing (2026), appliance mode, inspection with AWS Network Firewall and Gateway Load Balancer, TGW peering, multi-Region designs, sharing, quotas and prices including Tokyo. Path selection between overlapping routes is in [06-routing-and-path-selection.md](06-routing-and-path-selection.md). Verified against AWS documentation, What's New posts and the AWS Price List API as of 2026-10-10.
+This page covers what an on-prem connection (Direct Connect or Site-to-Site VPN) terminates on inside AWS and how routes get from there into VPCs: the virtual private gateway (VGW), the Direct Connect gateway (DXGW), AWS Transit Gateway (TGW) and AWS Cloud WAN. It explains VPC route tables and route propagation, TGW route tables, associations and propagations, Policy-Based Routing (2026), appliance mode, inspection with AWS Network Firewall and Gateway Load Balancer, TGW peering, multi-Region designs, sharing, quotas and prices including Tokyo. Path selection between overlapping routes is in [06-routing-and-path-selection.md](06-routing-and-path-selection.md). Verified against AWS documentation, What's New posts and the AWS Price List API as of 2026-10-10. Prices and quotas re-checked against the AWS Price List API and AWS documentation on 2026-11-09.
 
 ## The four hubs at a glance
 
@@ -102,7 +102,7 @@ flowchart LR
 - A static route with the same destination as a propagated route wins and hides the propagated one. Remove the static route and the propagated one reappears.
 - Blackhole routes drop matching traffic and are the standard way to isolate segments.
 - The TGW shows only the preferred route for a prefix. A backup (for example VPN behind DX) appears only after the preferred route is withdrawn.
-- If a new VPC has the same CIDR as an already attached VPC, its CIDR is not propagated. TGW cannot route between identical CIDRs.
+- If a new VPC has the same CIDR as an already attached VPC, its CIDR is not propagated. TGW cannot route between identical CIDRs; since 2026-10-23, 1:1 NAT on the attachment can give one side a distinct NAT CIDR.
 
 ### Policy-Based Routing (GA 2026-07)
 
@@ -256,6 +256,7 @@ Worked example (Tokyo, own arithmetic): one TGW with 10 VPC attachments and one 
 | 2025-11 | Cloud WAN in Thailand, Taipei and New Zealand |
 | 2026-04 | Client VPN native TGW attachment |
 | 2026-07 | TGW Policy-Based Routing (policy tables) |
+| 2026-10-23 | TGW and Cloud WAN 1:1 NAT on attachments (static, stateless CIDR-to-CIDR translation) |
 
 ## Common traps
 

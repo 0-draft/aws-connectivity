@@ -1,6 +1,6 @@
 # AWS Site-to-Site VPN
 
-This page covers AWS Site-to-Site VPN, the managed IPsec service that connects an on-premises network (data center, office, branch) to AWS over the internet or over Direct Connect. It covers where a VPN can terminate on the AWS side, the customer gateway, tunnels and routing, crypto options, bandwidth, acceleration, private IP VPN, IPv6, logging, route priority, quotas, pricing and the SLA. Every number was checked against AWS documentation, What's New posts, the AWS Price List API and AWS blogs, verified as of 2026-10-10. Where AWS sources disagree with each other, the page says so instead of picking one silently.
+This page covers AWS Site-to-Site VPN, the managed IPsec service that connects an on-premises network (data center, office, branch) to AWS over the internet or over Direct Connect. It covers where a VPN can terminate on the AWS side, the customer gateway, tunnels and routing, crypto options, bandwidth, acceleration, private IP VPN, IPv6, logging, route priority, quotas, pricing and the SLA. Every number was checked against AWS documentation, What's New posts, the AWS Price List API and AWS blogs, verified as of 2026-10-10. Prices and quotas re-checked against the AWS Price List API and AWS documentation on 2026-11-09. Where AWS sources disagree with each other, the page says so instead of picking one silently.
 
 ## At a glance
 

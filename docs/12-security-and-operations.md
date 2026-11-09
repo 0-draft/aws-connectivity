@@ -32,11 +32,12 @@ VPC Encryption Controls (launched 2025-11, paid from 2026-03-01, declarative org
 | Private NAT + ALB/NLB in the other network | SNAT on one side, load balancer as DNAT on the other | Both, per service | NAT + LB charges |
 | PrivateLink (NLB endpoint service) | Consumers get an endpoint IP in their own CIDR; overlap is irrelevant | Consumer → service | Endpoint $0.014/h per AZ + $0.01/GB |
 | PrivateLink tunnel endpoints (2026-09) | Share a resource configuration that represents a whole CIDR range via RAM; the consumer reaches it with GENEVE-encapsulated tunnel endpoint | Consumer → network segment | $0.028/h + $0.01/GB (first PB) |
+| TGW / Cloud WAN 1:1 NAT (2026-10-23) | A per-attachment rule maps an original CIDR to a NAT CIDR of the same prefix length; static and stateless, host bits kept, both directions. On TGW it works on VPC, DXGW, Site-to-Site VPN, Connect, peering and VPN Concentrator attachments (not Client VPN); IPv4 only; not on a VPC attachment with appliance mode | Both | Not checked (see Amazon VPC pricing) |
 | Outposts CoIP | LGW 1:1 NATs Outpost instances to an on-prem-owned pool | Both | Included in Outposts |
 | NAT on the customer router / firewall | Translate on-prem side before it reaches AWS | Either | Your equipment |
 | IPv6 | Global unique addressing removes the overlap problem | Both | — |
 
-Transit Gateway and VPC peering cannot route between identical CIDRs; one side has to be translated or hidden behind an endpoint.
+Transit Gateway and VPC peering cannot route between identical CIDRs; one side has to be translated or hidden behind an endpoint. Since 2026-10-23 the translation can happen on the TGW or Cloud WAN attachment itself (1:1 NAT), with no NAT gateway or appliance to run.
 
 ## IPv6 on each path
 

@@ -88,8 +88,8 @@ const PATTERNS: { id: string; routes: RouteId[]; name: L; what: L; upgrade: L }[
     routes: ["private"],
     name: { en: "M&A, overlapping CIDRs", ja: "M&A・CIDR 重複" },
     what: {
-      en: "Expose services through PrivateLink or VPC Lattice resource configurations, then private NAT gateway, then re-IP.",
-      ja: "PrivateLink か VPC Lattice のリソース設定でサービスを公開、次にプライベート NAT ゲートウェイ、最終的に再採番。",
+      en: "Expose services through PrivateLink or VPC Lattice resource configurations; translate whole networks with 1:1 NAT on the TGW or Cloud WAN attachment (2026-10); re-IP in the long run.",
+      ja: "PrivateLink か VPC Lattice のリソース設定でサービスを公開。ネットワーク同士は TGW / Cloud WAN のアタッチメントの 1:1 NAT (2026-10) で変換。最終的に再採番。",
     },
     upgrade: {
       en: "Policy-Based Routing (2026-07) steers traffic but does not translate addresses.",

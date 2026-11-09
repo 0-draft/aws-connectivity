@@ -1,6 +1,6 @@
 # SD-WAN, Connect attachments and self-managed overlays
 
-This page covers overlay paths between a corporate network and AWS that are not plain AWS Site-to-Site VPN: Transit Gateway Connect (GRE plus BGP), AWS Cloud WAN Connect attachments including Tunnel-less Connect, self-managed VPN or SD-WAN appliances on Amazon EC2 (strongSwan, AWS Marketplace NVAs), and where Gateway Load Balancer fits. Every number was checked against AWS documentation, What's New posts, the AWS Price List API and AWS blogs, verified as of 2026-10-10. Managed IPsec VPN is covered in `02-site-to-site-vpn.md`.
+This page covers overlay paths between a corporate network and AWS that are not plain AWS Site-to-Site VPN: Transit Gateway Connect (GRE plus BGP), AWS Cloud WAN Connect attachments including Tunnel-less Connect, self-managed VPN or SD-WAN appliances on Amazon EC2 (strongSwan, AWS Marketplace NVAs), and where Gateway Load Balancer fits. Every number was checked against AWS documentation, What's New posts, the AWS Price List API and AWS blogs, verified as of 2026-10-10. Prices and quotas re-checked against the AWS Price List API and AWS documentation on 2026-11-09. Managed IPsec VPN is covered in `02-site-to-site-vpn.md`.
 
 ## Why an overlay at all
 
