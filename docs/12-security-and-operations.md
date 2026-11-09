@@ -32,11 +32,12 @@ VPC Encryption Controls (launched 2025-11, paid from 2026-03-01, declarative org
 | Private NAT + ALB/NLB in the other network | SNAT on one side, load balancer as DNAT on the other | Both, per service | NAT + LB charges |
 | PrivateLink (NLB endpoint service) | Consumers get an endpoint IP in their own CIDR; overlap is irrelevant | Consumer → service | Endpoint $0.014/h per AZ + $0.01/GB |
 | PrivateLink tunnel endpoints (2026-09) | Share a resource configuration that represents a whole CIDR range via RAM; the consumer reaches it with GENEVE-encapsulated tunnel endpoint | Consumer → network segment | $0.028/h + $0.01/GB (first PB) |
+| TGW / Cloud WAN 1:1 NAT (2026-10-23) | A per-attachment rule maps an original CIDR to a NAT CIDR of the same prefix length; static and stateless, host bits kept, both directions. On TGW: VPC, Direct Connect gateway, Site-to-Site VPN (including Private IP VPN), Connect, peering and VPN Concentrator attachments; not Client VPN; IPv4 only; not on a VPC attachment with appliance mode ([TGW user guide](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html)) | Both | Not checked (see Amazon VPC pricing) |
 | Outposts CoIP | LGW 1:1 NATs Outpost instances to an on-prem-owned pool | Both | Included in Outposts |
 | NAT on the customer router / firewall | Translate on-prem side before it reaches AWS | Either | Your equipment |
 | IPv6 | Global unique addressing removes the overlap problem | Both | — |
 
-Transit Gateway and VPC peering cannot route between identical CIDRs; one side has to be translated or hidden behind an endpoint.
+Transit Gateway and VPC peering cannot route between identical CIDRs; one side has to be translated or hidden behind an endpoint. Since 2026-10-23 the translation can happen on the TGW or Cloud WAN attachment itself (1:1 NAT), with no NAT gateway or appliance to run.
 
 ## IPv6 on each path
 
@@ -249,3 +250,4 @@ The per-GB saving of DX over internet in Tokyo is 0.114 − 0.041 = $0.073/GB in
 - <https://aws.amazon.com/about-aws/whats-new/2026/07/vpc-encryption-controls-declarative-controls/>
 - <https://aws.amazon.com/about-aws/whats-new/2026/9/privatelink-tunnel-endpoint/>
 - AWS Price List API offer files for ap-northeast-1 (AmazonVPC, AmazonEC2, AWSDataTransfer, AWSDirectConnect, AWSCloudWAN, AmazonCloudWatch, AWSDataSync, AWSTransfer), fetched 2026-10-10: <https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/index.json>
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

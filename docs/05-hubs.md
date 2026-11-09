@@ -1,6 +1,6 @@
 # Where the on-prem path lands: AWS-side hubs
 
-This page covers what an on-prem connection (Direct Connect or Site-to-Site VPN) terminates on inside AWS and how routes get from there into VPCs: the virtual private gateway (VGW), the Direct Connect gateway (DXGW), AWS Transit Gateway (TGW) and AWS Cloud WAN. It explains VPC route tables and route propagation, TGW route tables, associations and propagations, Policy-Based Routing (2026), appliance mode, inspection with AWS Network Firewall and Gateway Load Balancer, TGW peering, multi-Region designs, sharing, quotas and prices including Tokyo. Path selection between overlapping routes is in [06-routing-and-path-selection.md](06-routing-and-path-selection.md). Verified against AWS documentation, What's New posts and the AWS Price List API as of 2026-10-10.
+This page covers what an on-prem connection (Direct Connect or Site-to-Site VPN) terminates on inside AWS and how routes get from there into VPCs: the virtual private gateway (VGW), the Direct Connect gateway (DXGW), AWS Transit Gateway (TGW) and AWS Cloud WAN. It explains VPC route tables and route propagation, TGW route tables, associations and propagations, Policy-Based Routing (2026), appliance mode, inspection with AWS Network Firewall and Gateway Load Balancer, TGW peering, multi-Region designs, sharing, quotas and prices including Tokyo. Path selection between overlapping routes is in [06-routing-and-path-selection.md](06-routing-and-path-selection.md). Verified against AWS documentation, What's New posts and the AWS Price List API as of 2026-10-10. Prices and quotas re-checked against the AWS Price List API and AWS documentation on 2026-11-09.
 
 ## The four hubs at a glance
 
@@ -102,7 +102,7 @@ flowchart LR
 - A static route with the same destination as a propagated route wins and hides the propagated one. Remove the static route and the propagated one reappears.
 - Blackhole routes drop matching traffic and are the standard way to isolate segments.
 - The TGW shows only the preferred route for a prefix. A backup (for example VPN behind DX) appears only after the preferred route is withdrawn.
-- If a new VPC has the same CIDR as an already attached VPC, its CIDR is not propagated. TGW cannot route between identical CIDRs.
+- If a new VPC has the same CIDR as an already attached VPC, its CIDR is not propagated. TGW cannot route between identical CIDRs; since 2026-10-23, 1:1 NAT on the attachment can map the overlapping side (or each side) to its own NAT CIDR ([TGW user guide](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html)).
 
 ### Policy-Based Routing (GA 2026-07)
 
@@ -256,12 +256,13 @@ Worked example (Tokyo, own arithmetic): one TGW with 10 VPC attachments and one 
 | 2025-11 | Cloud WAN in Thailand, Taipei and New Zealand |
 | 2026-04 | Client VPN native TGW attachment |
 | 2026-07 | TGW Policy-Based Routing (policy tables) |
+| 2026-10-23 | TGW and Cloud WAN 1:1 NAT on attachments (static, stateless CIDR-to-CIDR translation) |
 
 ## Common traps
 
 - A VPC does not learn on-prem routes from a TGW. You must add static routes (or a prefix list) in each subnet route table.
 - A subnet route to a TGW does nothing for an AZ where the TGW attachment has no subnet.
-- Two VPCs with identical CIDRs on one TGW: the second one silently does not propagate.
+- Two VPCs with identical CIDRs on one TGW: the second one silently does not propagate. Translate one with 1:1 NAT on its attachment (2026-10) or keep them apart.
 - TGW allowed prefixes on the DXGW must not overlap across TGWs on the same DXGW.
 - Forgetting appliance mode on the inspection VPC attachment breaks stateful firewalls only for cross-AZ flows, which makes it look intermittent.
 - A policy table on a VPN or Connect attachment silently stops BGP advertisements to that peer.
@@ -314,3 +315,4 @@ Worked example (Tokyo, own arithmetic): one TGW with 10 VPC attachments and one 
 - <https://aws.amazon.com/blogs/networking-and-content-delivery/simplify-global-security-inspection-with-aws-cloud-wan-service-insertion/>
 - <https://aws.amazon.com/blogs/aws/inspect-subnet-to-subnet-traffic-with-amazon-vpc-more-specific-routing/>
 - <https://repost.aws/knowledge-center/vpn-troubleshoot-routing>
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

@@ -839,6 +839,19 @@ const RAW: Launch[] = [
     },
     url: `${W}2026/10/aws-client-vpn-device-posture/`,
   },
+  {
+    date: "2026-10-23",
+    family: "hub",
+    title: {
+      en: "Transit Gateway and Cloud WAN 1:1 NAT",
+      ja: "Transit Gateway と Cloud WAN の 1:1 NAT",
+    },
+    why: {
+      en: "Overlapping networks talk through the hub without renumbering or NAT appliances",
+      ja: "重複したネットワーク同士が、再採番も NAT アプライアンスもなしにハブ経由で通信できる",
+    },
+    url: `${W}2026/10/aws-transit-gateway-cloud-wan-1-1-nat/`,
+  },
 ];
 
 /** Month-only dates sort after exact dates in the same month. */

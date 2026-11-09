@@ -53,7 +53,7 @@ Each rule reads `if <condition> then <recommendation>`. Earlier rules win. `alt`
 13. `uses_dx AND regions > 1` → **P3**: DXGW + Cloud WAN (native DXGW attachment since 2024-11) or DXGW + TGW per Region with TGW peering.
 14. `uses_dx AND encryption_required AND dedicated_speed >= 10 Gbps AND macsec_location AND (own_port OR carrier_is_l2_transparent)` → **MACsec** (it needs a dedicated port and a direct Layer 2 adjacency, so it does not cover a hosted connection or a carrier that is not L2 transparent); else **Private IP VPN over transit VIF** (needs TGW).
 15. `internet_egress_allowed = false` → **P5 closed network**: no IGW (enforce with VPC Block Public Access), interface endpoints, Resolver endpoints, Route 53 Profiles.
-16. `cidr_overlaps_with_onprem_or_acquired = true` → **P7 overlap pattern**: service-level exposure (PrivateLink / Lattice resource configurations) first, private NAT gateway second, re-IP long term.
+16. `cidr_overlaps_with_onprem_or_acquired = true` → **P7 overlap pattern**: service-level exposure (PrivateLink / Lattice resource configurations) for single services, 1:1 NAT on the TGW or Cloud WAN attachment (2026-10) for whole networks, re-IP long term.
 17. `workload_critical = true AND uses_dx` → resiliency **Maximum** (99.99% SLA: two or more connections on separate devices in each of two or more DX locations, four or more in total; needs Enterprise Support and a Well-Architected Review), else **High** (99.9%: one connection in each of two or more locations; needs Enterprise Support), and **Development and test** only for non-critical.
 
 ## Pattern P1: small office, one VPC (VPN to VGW)
@@ -169,7 +169,8 @@ flowchart LR
 ## Pattern P7: M&A and overlapping CIDRs
 
 - First choice, **expose services rather than networks**: PrivateLink endpoint services (NLB-fronted), or PrivateLink resource endpoints and VPC Lattice resource configurations (2024-12). These reach a database or IP in an overlapping network without routing the whole CIDR.
-- Second choice, **private NAT gateway**: add a routable secondary CIDR, use the private NAT gateway for source NAT and an internal ALB or NLB for destination NAT, and route through TGW or VGW. This is the pattern in the multi-VPC whitepaper and the re:Post Knowledge Center.
+- When whole networks must talk, **1:1 NAT on the TGW or Cloud WAN attachment** (2026-10-23): a per-attachment rule maps an original CIDR to a NAT CIDR of the same prefix length, statelessly and in both directions, so either side can start connections. On TGW: VPC, Direct Connect gateway, Site-to-Site VPN (including Private IP VPN), Connect, peering and VPN Concentrator attachments; not Client VPN; IPv4 only; not on a VPC attachment with appliance mode ([TGW user guide](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html)).
+- Without TGW or Cloud WAN, **private NAT gateway**: add a routable secondary CIDR, use the private NAT gateway for source NAT and an internal ALB or NLB for destination NAT, and route through TGW or VGW. This is the pattern in the multi-VPC whitepaper and the re:Post Knowledge Center.
 - Constraint to remember: VPCs associated with one DXGW through VGWs cannot have overlapping CIDRs.
 - New tool: TGW Policy-Based Routing (2026-07) can steer by source, port or protocol. It helps with segmentation during a migration, but it does not translate addresses.
 - Long term: re-IP from a planned IPAM pool. The whitepaper treats IP planning as step zero for this reason.
@@ -246,3 +247,4 @@ The Hybrid Networking Lens (2026-02-02 revision) applies the six pillars to hybr
 - <https://aws.amazon.com/about-aws/whats-new/2026/06/aws-service-availability/>
 - <https://aws.amazon.com/jp/blogs/news/fin-reference-arch-v1-6/>
 - <https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2026_AWS-DirectConnect-redundant-connection_0525_v1.pdf>
+- 1:1 NAT in AWS Transit Gateway (2026-10-23): <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html> and <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/>

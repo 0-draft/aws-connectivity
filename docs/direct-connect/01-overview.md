@@ -1,6 +1,6 @@
 # AWS Direct Connect Overview
 
-AWS Direct Connect (DX) links your internal network to a Direct Connect location over a standard Ethernet fiber-optic cable, so you can reach AWS public services and your VPCs without going through internet service providers. This page explains what DX is, its building blocks, when to pick it over Site-to-Site VPN or the internet, and what changed between 2023 and 2026. Facts were verified against AWS documentation and What's New posts as of 2026-10-12.
+AWS Direct Connect (DX) links your internal network to a Direct Connect location over a standard Ethernet fiber-optic cable, so you can reach AWS public services and your VPCs without going through internet service providers. This page explains what DX is, its building blocks, when to pick it over Site-to-Site VPN or the internet, and what changed between 2023 and 2026. Facts were verified against AWS documentation and What's New posts as of 2026-10-12; launches re-checked on 2026-11-09.
 
 ## What Direct Connect is
 
@@ -98,7 +98,7 @@ Buildings that together form one Direct Connect location (for example Equinix DC
 | 2024-07-01 | Native 400 Gbps dedicated connections at select locations (400GBASE-LR4) | Connection |
 | Undated (current docs) | MACsec documented for 400 Gbps dedicated connections (GCM-AES-XPN-256); the 400G launch post of 2024-07-01 did not mention MACsec, and the locations page now marks all 400G sites with (M) | Connection |
 | 2025-07 | MACsec extended to partner-owned interconnects at 100+ PoPs | Connection |
-| 2025 to 2026 | Steady location growth: e.g. Barcelona (2025-08), Auckland, Nairobi, Madrid MAD3 (2025-09), Hanoi (2025-12, first in Vietnam), Sydney SY5 (2026-03); 100G expansions in Chennai, Kansas City, Makati, Auckland, Lima | Locations |
+| 2025 to 2026 | Steady location growth: e.g. Barcelona (2025-08), Auckland, Nairobi, Madrid MAD3 (2025-09), Hanoi (2025-12, first in Vietnam), Sydney SY5 (2026-03); 100G expansions in Chennai, Kansas City, Makati, Auckland, Lima, Manchester, Bangalore | Locations |
 | 2025-11 | AWS Interconnect - last mile (Lumen) gated preview; GA 2026-04; AT&T gated preview 2026-06 | Adjacent product |
 | 2025-11 | AWS Interconnect - multicloud preview; GA 2026-04-13; free 500 Mbps tier 2026-05 | Adjacent product |
 | 2025-12 | Resilience testing of DX BGP failover with AWS Fault Injection Service | Operations |

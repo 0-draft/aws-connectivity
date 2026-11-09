@@ -1,6 +1,6 @@
 # Timeline of AWS hybrid networking, 2009–2026
 
-This page lists the launches that changed how a corporate network can reach AWS. It starts with Amazon VPC and its IPsec VPN in 2009 and runs through the 2025–2026 wave (large VPN tunnels, VPN Concentrator, AWS Interconnect, Client VPN on Transit Gateway, Direct Connect flat-rate pricing). Verified as of 2026-10-10. Each entry links to the AWS What's New post or, where that post could not be found, to the AWS blog or doc that records the date. Dates are the posted date when it was confirmed. `YYYY-MM` means only the month was confirmed (from the What's New URL path). Regional expansions are left out unless they changed what was possible.
+This page lists the launches that changed how a corporate network can reach AWS. It starts with Amazon VPC and its IPsec VPN in 2009 and runs through the 2025–2026 wave (large VPN tunnels, VPN Concentrator, AWS Interconnect, Client VPN on Transit Gateway, Direct Connect flat-rate pricing). Verified as of 2026-10-10; launches re-checked through 2026-11-09. Each entry links to the AWS What's New post or, where that post could not be found, to the AWS blog or doc that records the date. Dates are the posted date when it was confirmed. `YYYY-MM` means only the month was confirmed (from the What's New URL path). Regional expansions are left out unless they changed what was possible.
 
 ## Eras at a glance
 
@@ -94,6 +94,7 @@ timeline
 | 2026-09-15 | Direct Connect flat-rate pricing (10G/100G dedicated; port-pair) | No per-GB DTO within tier; second port in a pair at no charge | <https://aws.amazon.com/about-aws/whats-new/2026/09/aws-direct-connect-announces-flat-rate-pricing/> |
 | 2026-09-18 | PrivateLink tunnel endpoints | A consumer reaches a whole shared CIDR range (including on-premises) through one endpoint | <https://aws.amazon.com/about-aws/whats-new/2026/9/privatelink-tunnel-endpoint/> |
 | 2026-10-05 | Client VPN device posture assessment (CrowdStrike, Jamf, JumpCloud) | Posture checks move into network VPN | <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-client-vpn-device-posture/> |
+| 2026-10-23 | Transit Gateway and Cloud WAN 1:1 NAT | Overlapping networks talk through the hub without renumbering or NAT appliances | <https://aws.amazon.com/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat/> |
 
 ## Availability changes worth knowing
 

@@ -7,7 +7,7 @@ export const UI = {
     ja: "図の各パーツをタップ (クリック) すると解説が出ます。",
   },
   asOf: {
-    en: `Facts verified against AWS documentation as of ${DX_AS_OF}.`,
-    ja: `記載内容は ${DX_AS_OF} 時点の AWS 公式ドキュメントで確認済み。`,
+    en: `Prices, quotas, locations, the SLA and launches checked against AWS documentation as of ${DX_AS_OF}; each research note gives its own verification date.`,
+    ja: `料金・クォータ・ロケーション・SLA・新発表は ${DX_AS_OF} 時点の AWS 公式ドキュメントで確認済み (各調査ノートに個別の確認日あり)。`,
   },
 } satisfies Record<string, L>;
