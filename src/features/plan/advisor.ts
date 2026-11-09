@@ -335,8 +335,8 @@ export const REC: Record<RecId, { title: L; why: L }> = {
       ja: "ネットワークでなくサービスを公開",
     },
     why: {
-      en: "PrivateLink or VPC Lattice resource configurations for single services; for whole networks, 1:1 NAT on the Transit Gateway or Cloud WAN attachment (2026-10) maps the overlapping side, or each side, to its own NAT CIDR (IPv4 only, not with appliance mode); re-IP from an IPAM plan in the long run. No hub routes between identical CIDRs untranslated.",
-      ja: "単一サービスなら PrivateLink か VPC Lattice のリソース設定。ネットワーク同士なら Transit Gateway / Cloud WAN のアタッチメントの 1:1 NAT (2026-10) で重複する側 (または両側) を専用の NAT CIDR に変換する (IPv4 のみ、アプライアンスモードとは併用不可)。長期的には IPAM 計画で再採番。変換なしで同一 CIDR 間をルーティングできるハブはない。",
+      en: "PrivateLink or VPC Lattice resource configurations for single services; for whole networks, 1:1 NAT on the Transit Gateway or Cloud WAN attachment (2026-10) maps the overlapping side, or each side, to its own NAT CIDR (on TGW: IPv4 only, not with appliance mode); re-IP from an IPAM plan in the long run. No hub routes between identical CIDRs untranslated.",
+      ja: "単一サービスなら PrivateLink か VPC Lattice のリソース設定。ネットワーク同士なら Transit Gateway / Cloud WAN のアタッチメントの 1:1 NAT (2026-10) で重複する側 (または両側) を専用の NAT CIDR に変換する (TGW では IPv4 のみ、アプライアンスモードとは併用不可)。長期的には IPAM 計画で再採番。変換なしで同一 CIDR 間をルーティングできるハブはない。",
     },
   },
   resilMax: {
