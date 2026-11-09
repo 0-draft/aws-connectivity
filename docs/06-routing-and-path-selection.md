@@ -170,7 +170,7 @@ AWS does not publish convergence times for propagation inside a VGW, TGW or Clou
 ## Overlapping CIDRs
 
 - On-prem range overlapping a VPC CIDR: the `local` route wins, so that on-prem range is unreachable from the VPC. Renumber or translate (for example with a private NAT gateway).
-- Two VPCs with identical CIDRs on one TGW: the second VPC's CIDR is not propagated. TGW cannot route between identical CIDRs. Since 2026-10-23, 1:1 NAT on the TGW attachment (VPC, DXGW, VPN, Connect, peering) maps an original CIDR to a NAT CIDR of the same length, in both directions and without connection state.
+- Two VPCs with identical CIDRs on one TGW: the second VPC's CIDR is not propagated. TGW cannot route between identical CIDRs. Since 2026-10-23, 1:1 NAT on the TGW attachment maps an original CIDR to a NAT CIDR of the same length, in both directions and without connection state. On TGW: VPC, Direct Connect gateway, Site-to-Site VPN (including Private IP VPN), Connect, peering and VPN Concentrator attachments; not Client VPN; IPv4 only; not on a VPC attachment with appliance mode ([TGW user guide](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html)).
 - VGW associations on one DXGW need non-overlapping VPC CIDRs.
 - Allowed prefixes for different TGWs on one DXGW must not overlap.
 - Overlapping but not identical prefixes are fine everywhere; longest prefix match decides.

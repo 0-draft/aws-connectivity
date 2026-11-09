@@ -2,7 +2,7 @@
 
 This is a dated history of notable AWS Direct Connect launches, from the 2011 public release to the 2026 flat-rate pricing. Dates come from the DX User Guide document history and from AWS What's New posts. Where the two differ, both are noted.
 
-_Last verified: 2026-10-12._
+_Last verified: 2026-10-12; launches re-checked through 2026-11-09._
 
 > Note: Direct Connect launched on **2011-08-03**, not 2012. The 2012 milestones are the new console, the User Guide, IAM support, and more Regions.
 

@@ -1,6 +1,6 @@
 # Direct Connect Connections, Locations, and Ordering
 
-This page covers the physical and connection layer of AWS Direct Connect: dedicated vs hosted connections, hosted connections vs hosted VIFs, Direct Connect locations and how they map to Regions, the LOA-CFA and cross connect workflow with its timelines, physical requirements (optics, fiber, auto-negotiation, VLANs, BGP, BFD, MTU), and the quotas that apply to connections. Verified against AWS documentation as of 2026-10-12.
+This page covers the physical and connection layer of AWS Direct Connect: dedicated vs hosted connections, hosted connections vs hosted VIFs, Direct Connect locations and how they map to Regions, the LOA-CFA and cross connect workflow with its timelines, physical requirements (optics, fiber, auto-negotiation, VLANs, BGP, BFD, MTU), and the quotas that apply to connections. Verified against AWS documentation as of 2026-10-12; quotas and locations re-checked on 2026-11-09.
 
 ## Connection types
 
@@ -60,7 +60,7 @@ A Direct Connect location is a colocation facility (for example Equinix, CoreSit
 
 ### Speeds per location
 
-The locations page lists each site's speeds in an "Available as" column and marks MACsec support per speed with "(M)". Examples as of 2026-10-12:
+The locations page lists each site's speeds in an "Available as" column and marks MACsec support per speed with "(M)". Examples as of 2026-10-12 (re-checked 2026-11-09):
 
 | Location | Available as |
 | --- | --- |
@@ -91,7 +91,7 @@ The 400G sites listed on the locations page are all in the United States: CoreSi
 | 2026-03 | Equinix SY5, Sydney (tenth in Australia) | 10G, 100G with MACsec |
 | 2026-04 | Datacom Orbit DH6, Auckland (100G expansion) | 100G with MACsec |
 | 2026-07 | Cirion, Lima, Peru (100G expansion, first 100G/MACsec in Peru) | 100G with MACsec |
-| 2026-10 | Equinix MA3, Manchester (100G expansion, third 100G location in England); Netmagic DC2, Bangalore (100G expansion) | Manchester 10G, 100G with MACsec; Bangalore 100G (the locations page marks MACsec) |
+| 2026-10 | Equinix MA3, Manchester ([100G expansion](https://aws.amazon.com/about-aws/whats-new/2026/10/aws-direct-connect-100g-manchester/)); Netmagic DC2, Bangalore ([100G expansion](https://aws.amazon.com/about-aws/whats-new/2026/10/aws-direct-connect-100g-bangalore/)) | Manchester 10G, 100G with MACsec; Bangalore 100G |
 
 ## Connectivity options to reach a location
 

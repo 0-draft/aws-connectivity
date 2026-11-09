@@ -102,7 +102,7 @@ flowchart LR
 - A static route with the same destination as a propagated route wins and hides the propagated one. Remove the static route and the propagated one reappears.
 - Blackhole routes drop matching traffic and are the standard way to isolate segments.
 - The TGW shows only the preferred route for a prefix. A backup (for example VPN behind DX) appears only after the preferred route is withdrawn.
-- If a new VPC has the same CIDR as an already attached VPC, its CIDR is not propagated. TGW cannot route between identical CIDRs; since 2026-10-23, 1:1 NAT on the attachment can give one side a distinct NAT CIDR.
+- If a new VPC has the same CIDR as an already attached VPC, its CIDR is not propagated. TGW cannot route between identical CIDRs; since 2026-10-23, 1:1 NAT on the attachment can map the overlapping side (or each side) to its own NAT CIDR ([TGW user guide](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html)).
 
 ### Policy-Based Routing (GA 2026-07)
 

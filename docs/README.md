@@ -1,6 +1,6 @@
 # Research notes
 
-Everything the site says is backed by these notes. Each page ends with the AWS documentation, What's New posts, pricing pages and blogs it was checked against. All pages were verified on 2026-10-10. Prices are USD list prices, mostly for Asia Pacific (Tokyo), taken from the AWS Price List API.
+Everything the site says is backed by these notes. Each page ends with the AWS documentation, What's New posts, pricing pages and blogs it was checked against. All pages were verified on 2026-10-10; prices, quotas and launches were re-checked on 2026-11-09 (pages that were re-checked say so in their opening paragraph). Prices are USD list prices, mostly for Asia Pacific (Tokyo), taken from the AWS Price List API.
 
 | # | Page | Covers |
 | --- | --- | --- |

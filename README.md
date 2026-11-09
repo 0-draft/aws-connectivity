@@ -32,7 +32,7 @@ Formerly `0-draft/on-ramp` (renamed 2026-11-08; the old site URL no longer serve
 | 15 | Plan yours | Questionnaire → recommended topology and anti-patterns |
 | 16–18 | Quiz, timeline, glossary | Myth-or-fact cards, launches 2009–2026, EN/JA glossary |
 
-The research behind every number lives in [`docs/`](docs/README.md), with sources. Facts were verified against AWS documentation, What's New posts and the AWS Price List API on 2026-10-10.
+The research behind every number lives in [`docs/`](docs/README.md), with sources. Facts were verified against AWS documentation, What's New posts and the AWS Price List API on 2026-10-10; prices, quotas and launches were re-checked on 2026-11-09.
 
 ## Direct Connect deep dive
 
@@ -56,7 +56,7 @@ The map is every road; the second page, **[Direct Connect, up close](https://0-d
 | Timeline | 2011–2026 launches |
 | Glossary | Every term with its official English and Japanese console name and what it is often confused with |
 
-Facts on the deep dive were verified against AWS documentation on 2026-10-12.
+Facts on the deep dive were verified against AWS documentation on 2026-10-12; prices, quotas, locations, the SLA and launches were re-checked on 2026-11-09.
 
 ## Development
 
